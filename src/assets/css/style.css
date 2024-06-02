@@ -1,0 +1,615 @@
+/* Global */
+body {
+    font-family: roboto-flex;
+}
+
+.custom-button:hover {
+    background-color: orange;
+    color: #FFFFFF;
+}
+
+/* Navbar.jsx */
+.main-nav a.navbar-brand {
+    color: white;
+}
+.main-nav {
+    background-color: #F26240
+}
+.main-nav .navbar-nav a.nav-link {   
+    color: white;
+    font-weight: 600;
+    padding-top: 20px;
+}
+.main-nav .navbar-nav a.nav-link.active,
+.main-nav .navbar-nav .nav-link:hover {
+    color: white
+}
+.button1 {
+    text-decoration: none;
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: orange;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 8px !important;
+}
+
+/* Hero.jsx */
+.banner {
+    background-color: #F26240;
+    width: 100%;
+    height: 700px;
+    padding-top: 100px;
+    position: relative;
+}
+.image-car {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -10px;
+    width: 70%;
+}
+.moto {
+    padding-top: 30px;
+    color: #FFFFFF;
+    font-size: 35px;
+}
+@media screen and (max-width: 767px){
+    .banner{
+        height: 500px;
+    }
+    .moto {
+        font-size:  20px;
+    }
+}
+
+/* Search.jsx  */
+.search-section {
+    background: #fff;
+}
+.search-section .inner {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    padding: 40px 40px;
+
+    
+    margin-top: -70px;
+    position: relative;
+    z-index: 9;
+    border-radius: 10px;
+}
+.search-section .form-control,
+.search-section .form-select {
+    font-size: 14px;
+    font-weight: 600;
+}
+.search-section button[type="submit"] {
+    width: 100%;
+    font-size: 16px;
+    background: #e75542;
+    border: 1px solid #e75542;
+    font-weight: 600;
+}
+@media (max-width: 767px) {
+    .search-section .form-control,
+    .search-section .form-select {
+        margin-bottom: 10px;
+    }
+}
+
+/* Services.jsx */
+.garasi_kami {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.vehicle {
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+    padding-top: 30px;
+}
+.vehicle-all {
+    font-size: 24px;
+    text-decoration: none;
+    color: #e75542;
+}
+
+/* Garage.jsx */
+.blog-item {
+    padding-top: 50px;
+    padding-bottom: 20px;
+
+}
+.code {
+    padding-left: 10px;
+}
+span,
+i.code {
+    padding-right: 20px;
+}
+
+/* HowWeWork,jsx */
+.how-we-work{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+}
+.how-we-work > .col > .orange-box {
+    margin: auto;
+}
+.orange-box {
+    min-width: 250px;
+    width: 100%;
+    height: 280px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.logo-note {
+    width: 120px;
+    padding-top: 20px;
+
+}
+.cara-kerja-1 {
+    text-align: center;
+    font-size: 20px;
+}
+
+/* AboutUs.jsx */
+#about-me {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    color: black
+}
+#about-me .col-md-6 {
+    padding: 20px;
+}
+.about-box {
+    height: 120px;
+}
+.about-box .about-left {
+    height: 120px;
+    width: 20%;
+    float: left;
+}
+.about-box .about-left .fa {
+    padding-top: 13px;
+    font-size: 50px;
+}
+.about-box .about-right {
+    height: 120px;
+    width: 80%;
+    float: left;
+}
+.about-box .about-right h4 {
+    padding-top: 10px;
+    padding-left: 15px;
+    text-align: left;
+}
+.about-box .about-right p {
+    padding-left: 15px;
+    text-align: left;
+}
+
+/*-----------------Testimonials-------------------*/
+#testimonials
+{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+#testimonials .col-md-4
+{
+    padding: 10px 30px;
+}
+#testimonials img
+{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: -30px;
+    margin-top: -40px;
+    border: 5px solid #fff;
+    margin-bottom: 30px;
+}
+.review
+{
+    font-size: 16px;
+    padding: 10px 10px 10px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.2);
+}
+.review .fa-twitter
+{
+    color: #013f7e;
+}
+#testimonials span
+{
+    color: #013f7e;
+    font-weight: 600;
+    font-size: 18px;
+}
+#testimonials h1
+{
+    margin-bottom: 20px;
+    color: #013f7e;
+}
+#testimonials p
+{
+    padding-bottom: 20px; 
+}
+#testimonials .middle
+{
+    margin-bottom: -30px;
+    margin-top: -30px;
+}
+
+/* Footer.jsx */
+.footer {
+    padding: 100px 20px 15px;
+    background-color: black;
+    color: #fff;
+}
+.footer-logo {
+    width: 150px;
+    margin-top: 15px;
+    margin-bottom: 15px;  
+}
+.footer h4 {
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+.logo-1 {
+    padding-right: 10px;
+}
+.hehe{
+    width: 50%;
+    margin-left: 50%;
+}
+@media only screen and (max-width: 767px) {
+    .hehe, .car {
+        display: flex;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        margin-left: unset;
+    }
+}
+
+/* CarCard.jsx */
+.car-card{
+    text-decoration: none;
+    display: unset;
+    color: unset;
+}
+
+/* CarDetailPage */
+.detail-container{
+    margin-top: 75px;
+    margin-bottom: 75px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+/* ImageGallery */
+.image-gallery-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.gallery{
+    display: flex;
+    gap: 5px;
+}
+.gallery > .image{
+    width: auto;
+    height: 108px;
+}
+@media only screen and (min-width: 1000px) {
+    .detail-container{
+        flex-direction: row;
+    }
+}
+
+/* CarDetail.jsx */
+.car-detail-container > h4{
+    margin-top: 20px;
+}
+.specification{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.spec{
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+.spec div p {
+    margin: 0;
+}
+.spec div p:first-child{
+    font-weight: 700;
+}
+.rent{
+    background-color: #F26240;
+    border: unset;
+    outline: unset;
+    padding: 10px 20px;
+}
+.rent:hover{
+    background-color: #F26240;
+}
+
+/* Welcome.jsx */
+.welcome{
+    display: flex;
+    justify-content: space-between;
+}
+.welcome > .form {
+    width: max-content;
+}
+.side-welcome{
+    display: none;
+}
+
+@media only screen and (min-width: 767px) {
+    .side-welcome{
+        display: unset;
+    }
+}
+
+/* SignInPage.jsx */
+.form.sign-in{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login{
+    background-color: #F26240;
+    border: unset;
+    outline: unset;
+    padding: 10px 40px;
+    text-align: center;
+    width: fit-content;
+    align-self: flex-end;
+}
+.login:hover{
+    background-color: #F26240;
+}
+.login-wrapper{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.form-control.input-form{
+    width: 400px;
+}
+p.cta{
+    margin-top: 50px;
+    text-align: center;
+}
+.forget-pass{
+    text-align: right;
+    font-size: 10px;
+}
+
+/* SignUpPage */
+.form.sign-up{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* GaragePage.jsx */
+.garage-page{
+    margin-top: 150px;
+}
+
+/* Summary.jsx */
+.rental-summary{
+    width: 100%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.car-rented {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #C3D4E9;
+}
+.car-rented > img {
+    height: 108px;
+    width: auto;
+}
+.detail-price, .total-price{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.total-price{
+    margin-top: 100px;
+    align-items: center;
+}
+
+@media only screen and (min-width: 767px) {
+    .rental-summary{
+        width: 900px;
+    }
+}
+
+/* CheckoutPage.jsx */
+.checkout{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 50px;
+}
+.rent-detail-form{
+    width: 100%;
+}
+@media only screen and (min-width: 767px) {
+    .checkout{
+        gap: 100px;
+        flex-direction: row;
+    }
+}
+
+/* FormGroup.jsx */
+.form-group{
+    margin-bottom: 50px;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+/* CheckoutPage.jsx */
+.form-input-group{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+.form-input{
+    display: flex;
+    flex-direction: column;
+}
+.form-input > input, .form-input > select {
+    border-radius: 10px;
+    padding: 10px 20px;
+    outline: none;
+    border: none;
+    height: 55px;
+    background-color: #F6F7F9;
+}
+
+@media only screen and (min-width: 767px) {
+    .form-input-group{
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+}
+
+.radio-pickup {
+    padding: 10px;
+}
+
+.checkbox-pembayaran {
+    background-color: #F6F7F9;
+    margin: 10px;
+    height: 70px;
+    display: flex;
+    text-align: center;
+}
+
+.label-pembayaran {
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.img-kartu {
+    margin-left: auto;
+}
+
+.checkbox-form {
+    background-color: #F6F7F9;
+    margin: 10px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio-kategori {
+    padding-right: 50px;
+}
+
+.label-agree {
+    font-size: 20px;
+   padding-left: 10px;
+}
+
+
+/* PaymentModal.jsx */
+.payment-modal{
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #c4c4c43b;
+    display: flex;
+    justify-content: center;
+}
+.modal-content{
+    margin-top: 50px;
+    background-color: white;
+    width: 100%;
+    height: 90%;
+}
+.modal-header {
+    padding: 10px 50px;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-header button {
+    outline: none;
+    border: none;
+    background-color: unset;
+}
+.modal-body {
+    padding: 10px;
+}
+.status{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+.status img {
+    width: fit-content;
+}
+.rent-detail{
+    margin-top: 50px;
+    padding-left: 20px;
+}
+.detail-rent-group{
+    margin-top: 40px;
+}
+
+.hubungi-admin {
+    padding-left: 23px;
+    padding-top: 10px;
+}
+@media only screen and (min-width: 767px) {
+    .modal-content{
+        width: 50%;
+    }
+}
