@@ -200,9 +200,9 @@ export const PelangganAddData = () => {
       no_telp: noTelp,
       alamat: alamat,
       kota: kota,
-      lokasi: plokasi,
-      tanggal: ptanggal,
-      waktu: pwaktu,
+      plokasi: plokasi,
+      ptanggal: ptanggal,
+      pwaktu: pwaktu,
     }
 
     try {
@@ -329,9 +329,9 @@ export const PelangganEditData = () => {
       no_telp: noTelp,
       alamat: alamat,
       kota: kota,
-      lokasi: plokasi,
-      tanggal: ptanggal,
-      waktu: pwaktu,
+      plokasi: plokasi,
+      ptanggal: ptanggal,
+      pwaktu: pwaktu,
     }
 
     try {
