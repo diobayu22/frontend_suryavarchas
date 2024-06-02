@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import WelcomeLayout from '../components/WelcomeLayout'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 export default function SignUpPage() {
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

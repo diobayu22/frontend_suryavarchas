@@ -1,12 +1,20 @@
+import { useNavigate } from 'react-router-dom'
 import { PembelianAllData } from '../controller/PembelianController'
 import { SopirAllData } from '../controller/SopirController'
 
 const AdminPage = () => {
   const { SopirData } = SopirAllData()
   const { PembelianData, datatabel, columns } = PembelianAllData()
+  const navigate = useNavigate()
 
   const totalSopir = SopirData()
   const totalPembelian = PembelianData()
+  const handleLogout = (e) => {
+    e.preventDefault()
+    // Lakukan proses logout di sini, misalnya menghapus token
+    console.log('User logged out')
+    navigate('/login') // Arahkan ke halaman login setelah logout
+  }
   return (
     <div>
       <div className="container-admin">
@@ -76,7 +84,7 @@ const AdminPage = () => {
               </li>
               <div className="logout-admin">
                 <li>
-                  <a className="logout" href="#">
+                  <a className="logout" href="#" onClick={handleLogout}>
                     <i className="fas fa-sign-out-alt"></i> Logout
                   </a>
                 </li>

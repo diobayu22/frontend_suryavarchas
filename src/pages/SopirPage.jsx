@@ -43,6 +43,12 @@ const SopirPage = () => {
     navigate(`/sopiredit/${id}`)
   }
 
+  const handleLogout = (e) => {
+    e.preventDefault()
+    // Lakukan proses logout di sini, misalnya menghapus token
+    console.log('User logged out')
+    navigate('/login') // Arahkan ke halaman login setelah logout
+  }
   return (
     <div>
       <div className="container-admin">
@@ -112,7 +118,7 @@ const SopirPage = () => {
               </li>
               <div className="logout-admin">
                 <li>
-                  <a className="logout" href="#">
+                  <a className="logout" href="#" onClick={handleLogout}>
                     <i className="fas fa-sign-out-alt"></i> Logout
                   </a>
                 </li>

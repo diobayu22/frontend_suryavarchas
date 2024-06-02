@@ -28,6 +28,7 @@ export default function App() {
         <Route exact path="/garasi" element={<GaragePage />} />
         <Route exact path="/pembelian" element={<CheckoutPage />} />
         <Route exact path="/masuk" element={<SignInPage />} />
+        <Route exact path="/login" element={<SignInPage />} />
         <Route exact path="/daftar" element={<SignUpPage />} />
         <Route exact path="/detail" element={<CarDetailPage />} />
         <Route exact path="/admin" element={<AdminPage />} />
