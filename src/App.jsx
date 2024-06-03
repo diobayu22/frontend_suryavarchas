@@ -36,7 +36,7 @@ export default function App() {
         <Route exact path="/masuk" element={<SignInPage />} />
         <Route exact path="/login" element={<SignInPage />} />
         <Route exact path="/daftar" element={<SignUpPage />} />
-        <Route exact path="/detail" element={<CarDetailPage />} />
+        <Route exact path="/detail/:id" element={<CarDetailPage />} />
         <Route exact path="/admin" element={<AdminPage />} />
         <Route exact path="/sopir" element={<SopirPage />} />
         <Route exact path="/sopiradd" element={<AddSopirPage />} />
