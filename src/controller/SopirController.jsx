@@ -100,8 +100,9 @@ export const SopirAddData = () => {
   const [nama, setNama] = useState('')
   const [no_telp, setNoTelp] = useState('')
   const [alamat, setAlamat] = useState(null)
-  // const [imagePreview, setImagePreview] = useState(null)
+  const [imagePreview, setImagePreview] = useState(null)
   const navigate = useNavigate()
+  const [file, setFile] = useState(null)
   // const { token, refreshToken } = useTokenRefresh()
 
   useEffect(() => {
@@ -120,18 +121,18 @@ export const SopirAddData = () => {
     setAlamat(e.target.value)
   }
 
-  // const handleImageChange = (e) => {
-  //   const image = e.target.files[0]
-  //   setFile(image)
+  const handleImageChange = (e) => {
+    const image = e.target.files[0]
+    setFile(image)
 
-  //   const previewURL = URL.createObjectURL(image)
-  //   setImagePreview(previewURL)
-  // }
+    const previewURL = URL.createObjectURL(image)
+    setImagePreview(previewURL)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData()
-    // formData.append('file', file)
+    formData.append('image', file)
     formData.append('nama', nama)
     formData.append('no_telp', no_telp)
     formData.append('alamat', alamat)
@@ -161,6 +162,9 @@ export const SopirAddData = () => {
     handleNama,
     handleTelpChange,
     handleSubmit,
+    file,
+    imagePreview,
+    handleImageChange,
   }
 }
 
@@ -171,9 +175,9 @@ export const SopirEditData = () => {
   const [nama, setNama] = useState('')
   const [no_telp, setNoTelp] = useState('')
   const [alamat, setAlamat] = useState(null)
-  // const [imagePreview, setImagePreview] = useState(null)
+  const [imagePreview, setImagePreview] = useState(null)
   const navigate = useNavigate()
-  // const { token, refreshToken } = useTokenRefresh()
+  const [file, setFile] = useState(null)
 
   useEffect(() => {
     // refreshToken()
@@ -191,11 +195,21 @@ export const SopirEditData = () => {
     setAlamat(e.target.value)
   }
 
+  const handleImageChange = (e) => {
+    const image = e.target.files[0]
+    setFile(image)
+
+    const previewURL = URL.createObjectURL(image)
+    setImagePreview(previewURL)
+  }
+
   const getSopirId = async () => {
     const response = await axios.get(`http://localhost:3000/sopir/${id}`)
     setNama(response.data.nama)
     setNoTelp(response.data.no_telp)
     setAlamat(response.data.alamat)
+    setImagePreview(response.data.url)
+    setFile(response.data.image)
     // setImagePreview(response.data.url)
   }
 
@@ -204,6 +218,7 @@ export const SopirEditData = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData()
+    formData.append('image', file)
     formData.append('nama', nama)
     formData.append('no_telp', no_telp)
     formData.append('alamat', alamat)
@@ -238,6 +253,9 @@ export const SopirEditData = () => {
     handleNama,
     handleTelpChange,
     handleSubmit,
+    file,
+    imagePreview,
+    handleImageChange,
   }
 }
 
@@ -245,9 +263,9 @@ export const SopirDetail = () => {
   const [nama, setNama] = useState('')
   const [no_telp, setNoTelp] = useState('')
   const [alamat, setAlamat] = useState(null)
-  // const [imagePreview, setImagePreview] = useState(null)
-  // const { refreshToken } = useTokenRefresh()
-  // const { id } = useParams()
+  const [imagePreview, setImagePreview] = useState(null)
+  const navigate = useNavigate()
+  const [file, setFile] = useState(null)
 
   useEffect(() => {
     // refreshToken()
@@ -258,7 +276,7 @@ export const SopirDetail = () => {
     setNama(response.data.nama)
     setNoTelp(response.data.no_telp)
     setAlamat(response.data.alamat)
-    // setImagePreview(response.data.url)
+    setImagePreview(response.data.url)
     // setWaktu(response.data.dibuat_pada)
   }
 
@@ -274,5 +292,5 @@ export const SopirDetail = () => {
 
   // const formattedDate = formatDate(waktu)
 
-  return { nama, no_telp, alamat, getSopirId }
+  return { nama, no_telp, alamat, getSopirId, imagePreview }
 }

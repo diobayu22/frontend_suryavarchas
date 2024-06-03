@@ -18,8 +18,17 @@ const AddSopirPage = () => {
     handleNama,
     handleTelpChange,
     handleSubmit,
+    file,
+    imagePreview,
+    handleImageChange,
   } = SopirAddData()
-
+  const handleLogout = (e) => {
+    e.preventDefault()
+    // Clear the token and perform logout
+    localStorage.removeItem('refresh_token')
+    console.log('User logged out')
+    navigate('/login') // Redirect to login page after logout
+  }
   return (
     <div>
       <div className="container-admin">
@@ -89,7 +98,7 @@ const AddSopirPage = () => {
               </li>
               <div className="logout-admin">
                 <li>
-                  <a className="logout" href="#">
+                  <a className="logout" href="#" onClick={handleLogout}>
                     <i className="fas fa-sign-out-alt"></i> Logout
                   </a>
                 </li>
@@ -157,13 +166,40 @@ const AddSopirPage = () => {
                       name="alamat"
                       style={{
                         width: '400px',
-                        height: '200px',
+                        height: '50px',
                       }}
                       className="border rounded-md py-2 px-3 focus:outline-none focus:shadow-outline"
                       value={alamat}
                       onChange={handleAlamatChange}
                     />
                   </div>
+
+                  <div className="form-group mb-4">
+                    <label
+                      htmlFor="image"
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                      Image
+                    </label>
+                    <br />
+                    <input
+                      type="file"
+                      id="image"
+                      name="image"
+                      onChange={handleImageChange}
+                      className="border rounded-md py-2 px-3 w-full focus:outline-none focus:shadow-outline"
+                    />
+                    <br />
+                    {imagePreview && (
+                      <img
+                        src={imagePreview}
+                        alt="Image Preview"
+                        className="mt-2 rounded-md max-w-full"
+                        style={{ maxHeight: '200px' }}
+                      />
+                    )}
+                  </div>
+
                   <button
                     type="submit"
                     className="btn btn-primary login"

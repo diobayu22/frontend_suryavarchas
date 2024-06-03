@@ -1,25 +1,43 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faPlus,
-  faEdit,
-  faTrash,
-  faEye,
-} from '@fortawesome/free-solid-svg-icons'
-import { SopirEditData } from '../controller/SopirController'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { MobilAddData } from '../controller/MobilController'
 
-const EditSopirPage = () => {
+const AddPenjadwalanPage = () => {
+  const navigate = useNavigate()
   const {
-    nama,
-    no_telp,
-    alamat,
-    handleAlamatChange,
-    handleNama,
-    handleTelpChange,
+    jenis,
+    merk,
+    tahun,
+    pajak,
+    kategori_id,
+    handleJenisChange,
+    handleMerkChange,
+    handleTahunChange,
+    handlePajakChange,
+    handleKategoriIdChange,
     handleSubmit,
     file,
     imagePreview,
     handleImageChange,
-  } = SopirEditData()
+  } = MobilAddData()
+
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/kategori')
+      setCategories(response.data)
+    } catch (error) {
+      console.error('Error fetching categories:', error)
+    }
+  }
   const handleLogout = (e) => {
     e.preventDefault()
     // Clear the token and perform logout
@@ -44,7 +62,7 @@ const EditSopirPage = () => {
                   Home
                 </a>
               </li>
-              <li style={{ backgroundColor: 'orangered' }}>
+              <li>
                 <a href="/sopir">
                   <img
                     className="logo-1"
@@ -54,7 +72,7 @@ const EditSopirPage = () => {
                   Sopir
                 </a>
               </li>
-              <li>
+              <li style={{ backgroundColor: 'orangered' }}>
                 <a href="/mobil">
                   <img
                     className="logo-1"
@@ -111,12 +129,6 @@ const EditSopirPage = () => {
             </div>
           </header>
           <section>
-            {/* <h2>Data Pemasukan</h2>
-            <p>
-              This is the admin dashboard where you can manage users, view
-              reports, and adjust settings.
-            </p> */}
-
             <div
               style={{
                 backgroundColor: '#ffffff',
@@ -127,49 +139,75 @@ const EditSopirPage = () => {
             >
               <div style={{ marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                  Edit Sopir
+                  Tambah Mobil
                 </h3>
               </div>
-              <form action="" className="form sign-up">
+              <form action="" className="form sign-up" onSubmit={handleSubmit}>
                 <div className="login-wrapper my-auto">
                   <div className="form-group">
-                    <label htmlFor="nama">Nama</label>
+                    <label htmlFor="jenis">Jenis</label>
                     <input
                       type="text"
-                      name="nama"
-                      id="nama"
+                      name="jenis"
+                      id="jenis"
                       className="form-control input-form"
-                      placeholder="TesyaEriana"
-                      value={nama}
-                      onChange={handleNama}
+                      placeholder="Jenis Mobil"
+                      value={jenis}
+                      onChange={handleJenisChange}
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="no_telp">No Telp</label>
+                    <label htmlFor="merk">Merk</label>
                     <input
-                      type="number"
-                      name="no_telp"
-                      id="no_telp"
+                      type="text"
+                      name="merk"
+                      id="merk"
                       className="form-control input-form"
-                      placeholder="089xxxxxxx"
-                      value={no_telp}
-                      onChange={handleTelpChange}
+                      placeholder="Merk Mobil"
+                      value={merk}
+                      onChange={handleMerkChange}
                     />
                   </div>
-                  <div className="form-group mb-4">
-                    <label htmlFor="alamat">Alamat</label>
-                    <br />
-                    <textarea
-                      id="alamat"
-                      name="alamat"
-                      style={{
-                        width: '400px',
-                        height: '200px',
-                      }}
-                      className="border rounded-md py-2 px-3 focus:outline-none focus:shadow-outline"
-                      value={alamat}
-                      onChange={handleAlamatChange}
+                  <div className="form-group">
+                    <label htmlFor="tahun">Tahun</label>
+                    <input
+                      type="number"
+                      name="tahun"
+                      id="tahun"
+                      className="form-control input-form"
+                      placeholder="Tahun Pembuatan"
+                      value={tahun}
+                      onChange={handleTahunChange}
                     />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="pajak">Pajak</label>
+                    <input
+                      type="number"
+                      name="pajak"
+                      id="pajak"
+                      className="form-control input-form"
+                      placeholder="Pajak Mobil"
+                      value={pajak}
+                      onChange={handlePajakChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="kategori_id">Kategori</label>
+                    <select
+                      name="kategori_id"
+                      id="kategori_id"
+                      className="form-control input-form"
+                      value={kategori_id}
+                      onChange={handleKategoriIdChange}
+                    >
+                      <option value="">Pilih Kategori</option>
+                      {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.namakategori}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="form-group mb-4">
                     <label
@@ -178,7 +216,6 @@ const EditSopirPage = () => {
                     >
                       Image
                     </label>
-                    <br />
                     <input
                       type="file"
                       id="image"
@@ -186,7 +223,6 @@ const EditSopirPage = () => {
                       onChange={handleImageChange}
                       className="border rounded-md py-2 px-3 w-full focus:outline-none focus:shadow-outline"
                     />
-                    <br />
                     {imagePreview && (
                       <img
                         src={imagePreview}
@@ -199,7 +235,14 @@ const EditSopirPage = () => {
                   <button
                     type="submit"
                     className="btn btn-primary login"
-                    onClick={handleSubmit}
+                    style={{
+                      backgroundColor: 'green',
+                      color: 'white',
+                      padding: '8px 16px',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                    }}
                   >
                     Simpan
                   </button>
@@ -213,4 +256,4 @@ const EditSopirPage = () => {
   )
 }
 
-export default EditSopirPage
+export default AddPenjadwalanPage

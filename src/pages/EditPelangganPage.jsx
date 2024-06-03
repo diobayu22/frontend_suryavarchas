@@ -1,30 +1,102 @@
-import {
-  PelangganAddData,
-  PelangganEditData,
-} from '../controller/PembelianController'
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
+import { UserAllData } from '../controller/UserController'
 
 const EditPelangganPage = () => {
-  const {
-    tipeIdentitas,
-    noIdentitas,
-    nama,
-    noTelp,
-    alamat,
-    kota,
-    plokasi,
-    ptanggal,
-    pwaktu,
-    handleSubmit,
-    handleAlamat,
-    handleKota,
-    handleLokasi,
-    handleNama,
-    handleNoIdentitas,
-    handleNoTelp,
-    handleTanggal,
-    handleTipeIdentitas,
-    handleWaktu,
-  } = PelangganEditData()
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    alamat: '',
+    image: '',
+  })
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/user')
+      setUser(response.data)
+
+      console.log('data refresh token', response.data)
+
+      // Extract the refresh_token from the response
+      if (response.data && response.data.length > 0) {
+        setRefreshToken(response.data[0].refresh_token)
+        localStorage.setItem('refresh_token', response.data[0].refresh_token)
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
+  console.log('datauser', getUser)
+
+  const [selectedFile, setSelectedFile] = useState(null)
+  const navigate = useNavigate()
+  const { id } = useParams()
+
+  useEffect(() => {
+    getUser()
+    const fetchUser = async () => {
+      const token = localStorage.getItem('refresh_token')
+
+      try {
+        const response = await axios.get(`http://localhost:3000/me`, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        setUser(response.data)
+      } catch (error) {
+        console.error('Error fetching user data:', error)
+      }
+    }
+
+    fetchUser()
+  }, [id])
+
+  const handleLogout = (e) => {
+    e.preventDefault()
+    localStorage.removeItem('refresh_token')
+    console.log('User logged out')
+    navigate('/login')
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setUser((prevUser) => ({ ...prevUser, [name]: value }))
+  }
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0])
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const token = localStorage.getItem('refresh_token')
+
+    const formData = new FormData()
+    formData.append('name', user.name)
+    formData.append('email', user.email)
+    formData.append('phone', user.phone)
+    formData.append('alamat', user.alamat)
+    if (selectedFile) {
+      formData.append('image', selectedFile)
+    }
+
+    try {
+      await axios.put(`http://localhost:3000/users/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      navigate('/pelanggan')
+    } catch (error) {
+      console.error('Error updating user:', error)
+    }
+  }
 
   return (
     <div>
@@ -43,7 +115,7 @@ const EditPelangganPage = () => {
                   Home
                 </a>
               </li>
-              <li style={{ backgroundColor: 'orangered' }}>
+              <li>
                 <a href="/sopir">
                   <img
                     className="logo-1"
@@ -63,7 +135,7 @@ const EditPelangganPage = () => {
                   Mobil
                 </a>
               </li>
-              <li>
+              <li style={{ backgroundColor: 'orangered' }}>
                 <a href="/pelanggan">
                   <img
                     className="logo-1"
@@ -95,7 +167,7 @@ const EditPelangganPage = () => {
               </li>
               <div className="logout-admin">
                 <li>
-                  <a className="logout" href="#">
+                  <a className="logout" href="#" onClick={handleLogout}>
                     <i className="fas fa-sign-out-alt"></i> Logout
                   </a>
                 </li>
@@ -106,16 +178,10 @@ const EditPelangganPage = () => {
         <main className="main-content">
           <header className="navbar-admin">
             <div className="navbar-icons">
-              <img src="/images/admin/gg_profile.svg" />
+              <img src="/images/admin/gg_profile.svg" alt="Profile" />
             </div>
           </header>
           <section>
-            {/* <h2>Data Pemasukan</h2>
-            <p>
-              This is the admin dashboard where you can manage users, view
-              reports, and adjust settings.
-            </p> */}
-
             <div
               style={{
                 backgroundColor: '#ffffff',
@@ -126,38 +192,27 @@ const EditPelangganPage = () => {
             >
               <div style={{ marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                  Tambah Sopir
+                  Edit Pelanggan
                 </h3>
               </div>
               <form onSubmit={handleSubmit} style={formStyle}>
                 <div style={formGroupStyle}>
-                  <label style={labelStyle}>Tipe Identitas:</label>
-                  <select
-                    value={tipeIdentitas}
-                    onChange={handleTipeIdentitas}
-                    style={inputStyle}
-                  >
-                    <option value="">Pilih Tipe Identitas</option>
-                    <option value="KTP">KTP</option>
-                    <option value="SIM">SIM</option>
-                    <option value="KARTU PELAJAR">KARTU PELAJAR</option>
-                  </select>
-                </div>
-                <div style={formGroupStyle}>
-                  <label style={labelStyle}>No Identitas:</label>
+                  <label style={labelStyle}>Nama:</label>
                   <input
                     type="text"
-                    value={noIdentitas}
-                    onChange={handleNoIdentitas}
+                    name="name"
+                    value={user.name}
+                    onChange={handleChange}
                     style={inputStyle}
                   />
                 </div>
                 <div style={formGroupStyle}>
-                  <label style={labelStyle}>Nama:</label>
+                  <label style={labelStyle}>Email:</label>
                   <input
-                    type="text"
-                    value={nama}
-                    onChange={handleNama}
+                    type="email"
+                    name="email"
+                    value={user.email}
+                    onChange={handleChange}
                     style={inputStyle}
                   />
                 </div>
@@ -165,8 +220,9 @@ const EditPelangganPage = () => {
                   <label style={labelStyle}>No Telp:</label>
                   <input
                     type="text"
-                    value={noTelp}
-                    onChange={handleNoTelp}
+                    name="phone"
+                    value={user.phone}
+                    onChange={handleChange}
                     style={inputStyle}
                   />
                 </div>
@@ -174,44 +230,17 @@ const EditPelangganPage = () => {
                   <label style={labelStyle}>Alamat:</label>
                   <input
                     type="text"
-                    value={alamat}
-                    onChange={handleAlamat}
+                    name="alamat"
+                    value={user.alamat}
+                    onChange={handleChange}
                     style={inputStyle}
                   />
                 </div>
                 <div style={formGroupStyle}>
-                  <label style={labelStyle}>Kota:</label>
+                  <label style={labelStyle}>Foto Profil:</label>
                   <input
-                    type="text"
-                    value={kota}
-                    onChange={handleKota}
-                    style={inputStyle}
-                  />
-                </div>
-                <div style={formGroupStyle}>
-                  <label style={labelStyle}>Lokasi:</label>
-                  <input
-                    type="text"
-                    value={plokasi}
-                    onChange={handleLokasi}
-                    style={inputStyle}
-                  />
-                </div>
-                <div style={formGroupStyle}>
-                  <label style={labelStyle}>Tanggal:</label>
-                  <input
-                    type="date"
-                    value={ptanggal}
-                    onChange={handleTanggal}
-                    style={inputStyle}
-                  />
-                </div>
-                <div style={formGroupStyle}>
-                  <label style={labelStyle}>Waktu:</label>
-                  <input
-                    type="time"
-                    value={pwaktu}
-                    onChange={handleWaktu}
+                    type="file"
+                    onChange={handleFileChange}
                     style={inputStyle}
                   />
                 </div>

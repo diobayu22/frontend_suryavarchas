@@ -23,7 +23,7 @@ export default function SignUpPage() {
           email: email,
           password: password,
         })
-        navigate('/login')
+        navigate('/masuk')
       } catch (error) {
         console.log('Error data: ', error)
       }

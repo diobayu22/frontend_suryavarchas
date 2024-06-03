@@ -1,53 +1,58 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
+import {
+  faPlus,
+  faEdit,
+  faTrash,
+  faEye,
+} from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-const PelangganPage = () => {
+const MobilPage = () => {
   const navigate = useNavigate()
+  const [mobils, setMobils] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [pelanggan, setPelanggan] = useState([])
-  const [selectedPelanggan, setSelectedPelanggan] = useState({})
+  const [selectedMobil, setSelectedMobil] = useState(null)
 
   useEffect(() => {
-    getPelanggan()
+    fetchMobils()
   }, [])
 
-  const getPelanggan = async () => {
+  const fetchMobils = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/users')
-      const userData = response.data.filter((user) => user.role === 'user')
-      setPelanggan(userData)
+      const response = await axios.get('http://localhost:3000/mobil')
+      setMobils(response.data)
     } catch (error) {
-      console.error('Error fetching data:', error)
+      console.error('Error fetching mobils:', error)
     }
   }
 
-  const handleShow = async (id) => {
-    await getPelangganId(id)
-    setShowModal(true)
+  const handleAdd = () => {
+    navigate('/mobiladd')
+  }
+
+  const handleEdit = (id) => {
+    navigate(`/mobiledit/${id}`)
   }
 
   const handleDelete = async (id) => {
-    const token = localStorage.getItem('refresh_token')
     try {
-      await axios.delete(`http://localhost:3000/me`, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      getPelanggan() // Refresh the user data after deletion
+      await axios.delete(`http://localhost:3000/mobil/${id}`)
+      fetchMobils()
     } catch (error) {
-      console.log(error)
+      console.error('Error deleting mobil:', error)
     }
   }
 
-  const handleEdit = async (id) => {
-    navigate(`/pelangganedit/${id}`)
+  const handleShow = (mobil) => {
+    setSelectedMobil(mobil)
+    setShowModal(true)
   }
-
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date(dateString).toLocaleDateString(undefined, options)
+  }
   const handleLogout = (e) => {
     e.preventDefault()
     // Clear the token and perform logout
@@ -55,22 +60,6 @@ const PelangganPage = () => {
     console.log('User logged out')
     navigate('/login') // Redirect to login page after logout
   }
-
-  const getPelangganId = async (id) => {
-    const token = localStorage.getItem('refresh_token')
-    try {
-      const response = await axios.get(`http://localhost:3000/users/${id}`, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      setSelectedPelanggan(response.data)
-    } catch (error) {
-      console.error('Error fetching pelanggan data:', error)
-    }
-  }
-
   return (
     <div>
       <div className="container-admin">
@@ -98,7 +87,7 @@ const PelangganPage = () => {
                   Sopir
                 </a>
               </li>
-              <li>
+              <li style={{ backgroundColor: 'orangered' }}>
                 <a href="/mobil">
                   <img
                     className="logo-1"
@@ -108,7 +97,7 @@ const PelangganPage = () => {
                   Mobil
                 </a>
               </li>
-              <li style={{ backgroundColor: 'orangered' }}>
+              <li>
                 <a href="/pelanggan">
                   <img
                     className="logo-1"
@@ -151,7 +140,7 @@ const PelangganPage = () => {
         <main className="main-content">
           <header className="navbar-admin">
             <div className="navbar-icons">
-              <img src="/images/admin/gg_profile.svg" alt="Profile" />
+              <img src="/images/admin/gg_profile.svg" />
             </div>
           </header>
           <section>
@@ -165,8 +154,28 @@ const PelangganPage = () => {
             >
               <div style={{ marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                  Daftar Pelanggan
+                  Daftar Mobil
                 </h3>
+                <button
+                  style={{
+                    backgroundColor: 'green',
+                    color: 'white',
+                    padding: '8px 16px',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginTop: '8px',
+                  }}
+                  onClick={handleAdd}
+                >
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    style={{ marginRight: '8px' }}
+                  />
+                  Tambah Mobil
+                </button>
               </div>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
@@ -178,7 +187,7 @@ const PelangganPage = () => {
                         textAlign: 'left',
                       }}
                     >
-                      ID
+                      No
                     </th>
                     <th
                       style={{
@@ -187,7 +196,7 @@ const PelangganPage = () => {
                         textAlign: 'left',
                       }}
                     >
-                      Nama
+                      No ID
                     </th>
                     <th
                       style={{
@@ -196,7 +205,7 @@ const PelangganPage = () => {
                         textAlign: 'left',
                       }}
                     >
-                      Alamat
+                      Jenis
                     </th>
                     <th
                       style={{
@@ -205,7 +214,7 @@ const PelangganPage = () => {
                         textAlign: 'left',
                       }}
                     >
-                      No Telp
+                      Merk
                     </th>
                     <th
                       style={{
@@ -214,33 +223,54 @@ const PelangganPage = () => {
                         textAlign: 'left',
                       }}
                     >
-                      Aksi
+                      Tahun
+                    </th>
+                    <th
+                      style={{
+                        padding: '8px',
+                        backgroundColor: '#f2f2f2',
+                        textAlign: 'left',
+                      }}
+                    >
+                      Pajak
+                    </th>
+                    <th
+                      style={{
+                        padding: '8px',
+                        backgroundColor: '#f2f2f2',
+                        textAlign: 'left',
+                      }}
+                    >
+                      Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {pelanggan.map((data, index) => (
-                    <tr key={data.id}>
+                  {mobils.map((mobil, index) => (
+                    <tr key={mobil.id}>
                       <td>{index + 1}</td>
-                      <td>{data.name}</td>
-                      <td>{data.alamat}</td>
-                      <td>{data.phone}</td>
+                      <td>{mobil.no_id}</td>
+                      <td>{mobil.jenis}</td>
+                      <td>{mobil.merk}</td>
+                      <td>{mobil.tahun}</td>
+                      <td>{formatDate(mobil.pajak)}</td>
+
                       <td>
                         <div>
                           <FontAwesomeIcon
                             icon={faEdit}
                             style={{ cursor: 'pointer', marginRight: '10px' }}
-                            onClick={() => handleEdit(data.id)}
+                            onClick={() => handleEdit(mobil.id)}
                           />
-                          {/* <FontAwesomeIcon
+                          <FontAwesomeIcon
                             icon={faTrash}
                             style={{ cursor: 'pointer', marginRight: '10px' }}
-                            onClick={() => handleDelete(data.id)}
-                          /> */}
+                            onClick={() => handleDelete(mobil.id)}
+                          />
                           <FontAwesomeIcon
                             icon={faEye}
                             style={{ cursor: 'pointer' }}
-                            onClick={() => handleShow(data.id)}
+                            onClick={() => handleShow(mobil)}
                           />
                         </div>
                       </td>
@@ -252,17 +282,24 @@ const PelangganPage = () => {
           </section>
         </main>
       </div>
-      {showModal && (
+      {showModal && selectedMobil && (
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
-              <h3>Detail Pelanggan</h3>
+              <h3>Detail Mobil</h3>
               <button onClick={() => setShowModal(false)}>x</button>
             </div>
             <div className="modal-body">
-              <p>Nama: {selectedPelanggan.nama}</p>
-              <p>No. Telp: {selectedPelanggan.no_telp}</p>
-              <p>Alamat: {selectedPelanggan.alamat}</p>
+              <p>No ID: {selectedMobil.no_id}</p>
+              <p>Jenis: {selectedMobil.jenis}</p>
+              <p>Merk: {selectedMobil.merk}</p>
+              <p>Tahun: {selectedMobil.tahun}</p>
+              <p>Pajak: {formatDate(selectedMobil.pajak)}</p>
+              <img
+                src={selectedMobil.url}
+                alt="Mobil"
+                style={{ maxWidth: '100%' }}
+              />
             </div>
           </div>
         </div>
@@ -271,4 +308,4 @@ const PelangganPage = () => {
   )
 }
 
-export default PelangganPage
+export default MobilPage

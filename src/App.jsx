@@ -12,6 +12,12 @@ import EditSopirPage from './pages/EditSopirPage'
 import PelangganPage from './pages/PelangganPage'
 import AddPelangganPage from './pages/TambahPelanggan'
 import EditPelangganPage from './pages/EditPelangganPage'
+import MobilPage from './pages/MobilPage'
+import AddMobilPage from './pages/TambahMobil'
+import EditMobilPage from './pages/EditMobil'
+import PenjadwalanPage from './pages/PenjadwalanPage'
+import AddPenjadwalanPage from './pages/TambahPenjadwalan'
+import EditPenjadwalanPage from './pages/EditPenjadwalan'
 function PageNotfound() {
   return (
     <p className="error-message">
@@ -37,6 +43,21 @@ export default function App() {
         <Route exact path="/sopiredit/:id" element={<EditSopirPage />} />
         <Route exact path="/pelanggan" element={<PelangganPage />} />
         <Route exact path="/pelangganadd" element={<AddPelangganPage />} />
+        <Route
+          exact
+          path="/pelangganedit/:id"
+          element={<EditPelangganPage />}
+        />
+        <Route exact path="/mobil" element={<MobilPage />} />
+        <Route exact path="/mobiladd" element={<AddMobilPage />} />
+        <Route exact path="/mobiledit/:id" element={<EditMobilPage />} />
+        <Route exact path="/penjadwalan" element={<PenjadwalanPage />} />
+        <Route exact path="/penjadwalan" element={<AddPenjadwalanPage />} />
+        <Route
+          exact
+          path="/penjadwalan/:id"
+          element={<EditPenjadwalanPage />}
+        />
         <Route
           exact
           path="/pelangganedit/:id"

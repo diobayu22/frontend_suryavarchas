@@ -14,7 +14,7 @@ const SopirPage = () => {
   const navigate = useNavigate()
   const { datatabel, columns, getSopir } = SopirAllData()
   const [showModal, setShowModal] = useState(false)
-  const { nama, no_telp, alamat, getSopirId } = SopirDetail()
+  const { nama, no_telp, alamat, getSopirId, imagePreview } = SopirDetail()
 
   const handleTambah = () => {
     navigate('/sopiradd')
@@ -45,9 +45,10 @@ const SopirPage = () => {
 
   const handleLogout = (e) => {
     e.preventDefault()
-    // Lakukan proses logout di sini, misalnya menghapus token
+    // Clear the token and perform logout
+    localStorage.removeItem('refresh_token')
     console.log('User logged out')
-    navigate('/login') // Arahkan ke halaman login setelah logout
+    navigate('/login') // Redirect to login page after logout
   }
   return (
     <div>
@@ -234,6 +235,15 @@ const SopirPage = () => {
               <p>Nama: {nama}</p>
               <p>No. Telp: {no_telp}</p>
               <p>Alamat: {alamat}</p>
+              <p>Image</p>
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Image Preview"
+                  className="mt-2 rounded-md max-w-full"
+                  style={{ maxHeight: '200px' }}
+                />
+              )}
             </div>
           </div>
         </div>

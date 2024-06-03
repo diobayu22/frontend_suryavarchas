@@ -11,9 +11,10 @@ const AdminPage = () => {
   const totalPembelian = PembelianData()
   const handleLogout = (e) => {
     e.preventDefault()
-    // Lakukan proses logout di sini, misalnya menghapus token
+    // Clear the token and perform logout
+    localStorage.removeItem('refresh_token')
     console.log('User logged out')
-    navigate('/login') // Arahkan ke halaman login setelah logout
+    navigate('/login') // Redirect to login page after logout
   }
   return (
     <div>
