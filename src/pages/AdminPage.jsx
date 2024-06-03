@@ -1,4 +1,6 @@
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import { PembelianAllData } from '../controller/PembelianController'
 import { SopirAllData } from '../controller/SopirController'
 
@@ -6,9 +8,11 @@ const AdminPage = () => {
   const { SopirData } = SopirAllData()
   const { PembelianData, datatabel, columns } = PembelianAllData()
   const navigate = useNavigate()
+  const [mobils, setMobils] = useState([])
 
   const totalSopir = SopirData()
   const totalPembelian = PembelianData()
+
   const handleLogout = (e) => {
     e.preventDefault()
     // Clear the token and perform logout
@@ -16,6 +20,25 @@ const AdminPage = () => {
     console.log('User logged out')
     navigate('/login') // Redirect to login page after logout
   }
+
+  useEffect(() => {
+    fetchMobils()
+  }, [])
+
+  const fetchMobils = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/mobil')
+      setMobils(response.data)
+    } catch (error) {
+      console.error('Error fetching mobils:', error)
+    }
+  }
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date(dateString).toLocaleDateString(undefined, options)
+  }
+
   return (
     <div>
       <div className="container-admin">
@@ -96,19 +119,13 @@ const AdminPage = () => {
         <main className="main-content">
           <header className="navbar-admin">
             <div className="navbar-icons">
-              <img src="/images/admin/gg_profile.svg" />
+              <img src="/images/admin/gg_profile.svg" alt="Profile" />
             </div>
           </header>
           <section>
-            {/* <h2>Data Pemasukan</h2>
-            <p>
-              This is the admin dashboard where you can manage users, view
-              reports, and adjust settings.
-            </p> */}
             <div
               style={{
                 display: 'flex',
-                // justifyContent: 'space-between',
                 marginTop: '24px',
                 marginBottom: '24px',
               }}
@@ -127,11 +144,10 @@ const AdminPage = () => {
                     <h3 style={{ fontSize: '18px', fontWeight: 'bold' }}>
                       Total Armada
                     </h3>
-                    <p style={{ color: '#666666' }}>1,234</p>
+                    <p style={{ color: '#666666' }}>{mobils.length}</p>
                   </div>
-
                   <i
-                    className="fas fa-user"
+                    className="fas fa-car"
                     style={{
                       fontSize: '24px',
                       color: '#666666',
@@ -231,7 +247,7 @@ const AdminPage = () => {
                     <tr key={data.id}>
                       <td>{data.id}</td>
                       <td>{data.plokasi}</td>
-                      <td>{data.ptanggal}</td>
+                      <td>{formatDate(data.ptanggal)}</td>
                       <td>
                         <div
                           style={{

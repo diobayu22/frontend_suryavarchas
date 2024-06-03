@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import { UserAllData } from '../controller/UserController'
 
 const EditPelangganPage = () => {
   const [user, setUser] = useState({
@@ -12,39 +11,18 @@ const EditPelangganPage = () => {
     image: '',
   })
 
-  const getUser = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/user')
-      setUser(response.data)
-
-      console.log('data refresh token', response.data)
-
-      // Extract the refresh_token from the response
-      if (response.data && response.data.length > 0) {
-        setRefreshToken(response.data[0].refresh_token)
-        localStorage.setItem('refresh_token', response.data[0].refresh_token)
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    }
-  }
-
-  console.log('datauser', getUser)
-
   const [selectedFile, setSelectedFile] = useState(null)
   const navigate = useNavigate()
   const { id } = useParams()
 
   useEffect(() => {
-    getUser()
     const fetchUser = async () => {
       const token = localStorage.getItem('refresh_token')
 
       try {
-        const response = await axios.get(`http://localhost:3000/me`, {
+        const response = await axios.get(`http://localhost:3000/users/${id}`, {
           headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
           },
         })
         setUser(response.data)
@@ -86,10 +64,9 @@ const EditPelangganPage = () => {
     }
 
     try {
-      await axios.put(`http://localhost:3000/users/${id}`, formData, {
+      await axios.put(`http://localhost:3000/updatenotoken/${id}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       })
       navigate('/pelanggan')

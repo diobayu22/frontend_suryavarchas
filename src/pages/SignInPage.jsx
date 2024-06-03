@@ -1,20 +1,19 @@
-import { Link } from 'react-router-dom'
-import WelcomeLayout from '../components/WelcomeLayout'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import WelcomeLayout from '../components/WelcomeLayout'
 
-export default function SignInPage() {
+const SignInPage = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [userrole, setRole] = useState('')
+
   const Login = async (e) => {
     e.preventDefault()
 
     if (!email || !password) {
       console.log('Please fill in all fields')
-
       return
     } else {
       try {
@@ -23,19 +22,23 @@ export default function SignInPage() {
           password: password,
         })
 
-        setRole(response.data.role)
-        if (response.data.role.toLowerCase() === 'admin') {
+        const { role, refresh_token } = response.data
+        setRole(role)
+        localStorage.setItem('refresh_token', refresh_token)
+
+        if (role.toLowerCase() === 'admin') {
           navigate('/admin')
-        } else if (response.data.role.toLowerCase() === 'user') {
+        } else if (role.toLowerCase() === 'user') {
           navigate('/')
         } else {
-          console.log('Username Tidak Ditemukan')
+          console.log('Role not recognized')
         }
       } catch (error) {
-        console.log('Error data: ', error)
+        console.log('Error logging in: ', error)
       }
     }
   }
+
   return (
     <WelcomeLayout>
       <form action="" className="form sign-in">
@@ -59,12 +62,14 @@ export default function SignInPage() {
               name="password"
               id="password"
               className="form-control input-form"
-              placeholder="enter your passsword"
+              placeholder="enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <Link className="forget-pass">Lupa Password?</Link>
+          <Link className="forget-pass" to="/forgot-password">
+            Lupa Password?
+          </Link>
           <button
             type="submit"
             className="btn btn-primary login"
@@ -72,9 +77,6 @@ export default function SignInPage() {
           >
             Login
           </button>
-          {/* <Link type="submit" className="btn btn-primary login" to="/admin">
-            Login
-          </Link> */}
           <p className="cta">
             Belum Punya Akun? <Link to="/daftar">Daftar</Link>
           </p>
@@ -83,3 +85,5 @@ export default function SignInPage() {
     </WelcomeLayout>
   )
 }
+
+export default SignInPage

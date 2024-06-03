@@ -260,8 +260,8 @@ const PelangganPage = () => {
               <button onClick={() => setShowModal(false)}>x</button>
             </div>
             <div className="modal-body">
-              <p>Nama: {selectedPelanggan.nama}</p>
-              <p>No. Telp: {selectedPelanggan.no_telp}</p>
+              <p>Nama: {selectedPelanggan.name}</p>
+              <p>No. Telp: {selectedPelanggan.phone}</p>
               <p>Alamat: {selectedPelanggan.alamat}</p>
             </div>
           </div>
