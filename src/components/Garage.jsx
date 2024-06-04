@@ -65,53 +65,65 @@ export default function Garage() {
             Garasi Kami
           </h2>
           <div className="row pt-4">
-            <div className="col-md-3">
-              <a
-                href="#"
-                className={`vehicle ${
-                  activeCategory === 'Mobil Pribadi' ? 'active' : ''
-                }`}
-                onClick={() => handleCategoryClick('Mobil Pribadi')}
-                style={activeCategory === 'Mobil Pribadi' ? activeStyle : {}}
-              >
-                Mobil Pribadi
-              </a>
+            <div className="col-md-9">
+              <div className="row">
+                <div className="col-md-2">
+                  <a
+                    href="#"
+                    className={`vehicle ${
+                      activeCategory === 'Mobil Pribadi' ? 'active' : ''
+                    }`}
+                    onClick={() => handleCategoryClick('Mobil Pribadi')}
+                    style={
+                      activeCategory === 'Mobil Pribadi' ? activeStyle : {}
+                    }
+                  >
+                    Mobil Pribadi
+                  </a>
+                </div>
+                <div className="col-md-1">
+                  <a
+                    href="#"
+                    className={`vehicle ${
+                      activeCategory === 'Bus' ? 'active' : ''
+                    }`}
+                    onClick={() => handleCategoryClick('Bus')}
+                    style={activeCategory === 'Bus' ? activeStyle : {}}
+                  >
+                    Bus
+                  </a>
+                </div>
+                <div className="col-md-4">
+                  <a
+                    href="#"
+                    className={`vehicle ${
+                      activeCategory === 'Mobil Commercial' ? 'active' : ''
+                    }`}
+                    onClick={() => handleCategoryClick('Mobil Commercial')}
+                    style={
+                      activeCategory === 'Mobil Commercial' ? activeStyle : {}
+                    }
+                  >
+                    Mobil Commercial
+                  </a>
+                </div>
+              </div>
             </div>
-            <div className="col-md-3">
-              <a
-                href="#"
-                className={`vehicle ${
-                  activeCategory === 'Bus' ? 'active' : ''
-                }`}
-                onClick={() => handleCategoryClick('Bus')}
-                style={activeCategory === 'Bus' ? activeStyle : {}}
-              >
-                Bus
-              </a>
-            </div>
-            <div className="col-md-3">
-              <a
-                href="#"
-                className={`vehicle ${
-                  activeCategory === 'Mobil Commercial' ? 'active' : ''
-                }`}
-                onClick={() => handleCategoryClick('Mobil Commercial')}
-                style={activeCategory === 'Mobil Commercial' ? activeStyle : {}}
-              >
-                Mobil Commercial
-              </a>
-            </div>
-            <div className="col-md-3">
-              <a
-                href="#"
-                className={`vehicle-all ${
-                  activeCategory === null ? 'active' : ''
-                }`}
-                onClick={() => handleCategoryClick(null)}
-                style={activeCategory === null ? activeStyle : {}}
-              >
-                Lihat Semua
-              </a>
+            <div className="col-md-3 d-flex justify-content-end">
+              <div className="row">
+                <div className="col-md-12">
+                  <a
+                    href="#"
+                    className={`vehicle-all ${
+                      activeCategory === null ? 'active' : ''
+                    }`}
+                    onClick={() => handleCategoryClick(null)}
+                    style={activeCategory === null ? activeStyle : {}}
+                  >
+                    Lihat Semua
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

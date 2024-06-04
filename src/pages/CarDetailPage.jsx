@@ -26,7 +26,7 @@ export default function CarDetailPage({ match }) {
       <div className="container detail-container">
         {carDetail && (
           <>
-            <ImageGalerry images={carDetail.url} />
+            <ImageGalerry images={carDetail.urls} />
             <CarDetail detail={carDetail} />
           </>
         )}

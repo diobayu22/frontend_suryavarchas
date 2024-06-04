@@ -1,19 +1,7 @@
 import { Link } from 'react-router-dom'
 
 export default function CarCard({ item }) {
-  const {
-    stockIcon,
-    stock,
-    gasTypeIcon,
-    gasType,
-    carTypeIcon,
-    carType,
-    jenis,
-    merk,
-    url,
-    id,
-    kategori,
-  } = item
+  const { jenis, merk, urls, id, kategori } = item
 
   const cardStyle = {
     backgroundColor: '#fff',
@@ -28,29 +16,24 @@ export default function CarCard({ item }) {
     objectFit: 'cover',
   }
 
-  const contentStyle = {
-    padding: '16px',
-  }
+  const parsedUrls = JSON.parse(urls)
+
+  // Ambil URL pertama dari array
+  const imageUrl = parsedUrls[0] || ''
+  console.log('data image', imageUrl)
 
   return (
     <div className="col-md-3">
       <Link to={`/detail/${id}`} className="car-card">
         <div style={cardStyle}>
           <div className="photo">
-            <img style={imageStyle} src={url} alt="" />
+            {/* Menampilkan gambar pertama */}
+            <img style={imageStyle} src={imageUrl} alt="" />
           </div>
-          <div style={contentStyle}>
+          <div className="content" style={{ padding: '16px' }}>
             <h5>{jenis}</h5>
             <h6>{merk}</h6>
           </div>
-          {/* <div className="code">
-            <img src={stockIcon} alt="" />
-            <span>{stock}</span>
-            <img src={gasTypeIcon} alt="" />
-            <span>{gasType}</span>
-            <img src={carTypeIcon} alt="" />
-            <span>{carType}</span>
-          </div> */}
         </div>
       </Link>
     </div>

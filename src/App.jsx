@@ -32,7 +32,7 @@ export default function App() {
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/garasi" element={<GaragePage />} />
-        <Route exact path="/pembelian" element={<CheckoutPage />} />
+        <Route exact path="/pembelian/:id" element={<CheckoutPage />} />
         <Route exact path="/masuk" element={<SignInPage />} />
         <Route exact path="/login" element={<SignInPage />} />
         <Route exact path="/daftar" element={<SignUpPage />} />

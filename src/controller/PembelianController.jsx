@@ -148,6 +148,11 @@ export const PelangganAddData = () => {
   const [plokasi, setLokasi] = useState('')
   const [ptanggal, setTanggal] = useState('')
   const [pwaktu, setWaktu] = useState('')
+  const [klokasi, setKLokasi] = useState('')
+  const [ktanggal, setKTanggal] = useState('')
+  const [kwaktu, setKWaktu] = useState('')
+  const [kategori, setKategori] = useState('')
+  const [total, setTotal] = useState('')
   const navigate = useNavigate()
   // const { token, refreshToken } = useTokenRefresh()
 
@@ -187,8 +192,28 @@ export const PelangganAddData = () => {
     setTanggal(e.target.value)
   }
 
+  const handleKWaktu = (e) => {
+    setKWaktu(e.target.value)
+  }
+
+  const handleKLokasi = (e) => {
+    setKLokasi(e.target.value)
+  }
+
+  const handleKTanggal = (e) => {
+    setKTanggal(e.target.value)
+  }
+
   const handleWaktu = (e) => {
     setWaktu(e.target.value)
+  }
+
+  const handleKategori = (e) => {
+    setKategori(e.target.value)
+  }
+
+  const handleTotal = (e) => {
+    setTotal(e.target.value)
   }
 
   const handleSubmit = async (e) => {
@@ -203,6 +228,11 @@ export const PelangganAddData = () => {
       plokasi: plokasi,
       ptanggal: ptanggal,
       pwaktu: pwaktu,
+      klokasi: klokasi,
+      ktanggal: ktanggal,
+      kwaktu: kwaktu,
+      kategori: kategori,
+      total: total,
     }
 
     try {
@@ -233,6 +263,10 @@ export const PelangganAddData = () => {
     plokasi,
     ptanggal,
     pwaktu,
+    klokasi,
+    ktanggal,
+    kwaktu,
+    kategori,
     handleSubmit,
     handleAlamat,
     handleKota,
@@ -243,6 +277,12 @@ export const PelangganAddData = () => {
     handleTanggal,
     handleTipeIdentitas,
     handleWaktu,
+    handleKTanggal,
+    handleKWaktu,
+    handleKLokasi,
+    handleKategori,
+    total,
+    handleTotal,
   }
 }
 
@@ -427,5 +467,189 @@ export const PelangganDetail = () => {
     ptanggal,
     pwaktu,
     getPelangganId,
+  }
+}
+
+export const PelangganAddDataUser = () => {
+  const [tipeIdentitas, setTipeIdentitas] = useState('')
+  const [noIdentitas, setNoIdentitas] = useState('')
+  const [nama, setNama] = useState('')
+  const [noTelp, setNoTelp] = useState('')
+  const [alamat, setAlamat] = useState('')
+  const [kota, setKota] = useState('')
+  const [plokasi, setLokasi] = useState('')
+  const [ptanggal, setTanggal] = useState('')
+  const [pwaktu, setWaktu] = useState('')
+  const [klokasi, setKLokasi] = useState('')
+  const [ktanggal, setKTanggal] = useState('')
+  const [kwaktu, setKWaktu] = useState('')
+  const [kategori, setKategori] = useState('')
+  const [total, setTotal] = useState('')
+  const [iduser, setIdUser] = useState('')
+  const navigate = useNavigate()
+  // const { token, refreshToken } = useTokenRefresh()
+  const [plokasiEnabled, setPlokasiEnabled] = useState(false)
+  const [klokasiEnabled, setKlokasiEnabled] = useState(false)
+
+  // Fungsi untuk mengubah status checkbox pickup
+  const handleCheckboxChange = () => {
+    setPlokasiEnabled(!plokasiEnabled)
+  }
+  const handleKCheckboxChange = () => {
+    setKlokasiEnabled(!klokasiEnabled)
+  }
+  useEffect(() => {
+    // refreshToken()
+  }, [])
+
+  const handleTipeIdentitas = (e) => {
+    setTipeIdentitas(e.target.value)
+  }
+
+  const handleNoIdentitas = (e) => {
+    setNoIdentitas(e.target.value)
+  }
+
+  const handleNama = (e) => {
+    setNama(e.target.value)
+  }
+
+  const handleNoTelp = (e) => {
+    setNoTelp(e.target.value)
+  }
+
+  const handleAlamat = (e) => {
+    setAlamat(e.target.value)
+  }
+
+  const handleKota = (e) => {
+    setKota(e.target.value)
+  }
+
+  const handleLokasi = (e) => {
+    setLokasi(e.target.value)
+  }
+
+  const handleTanggal = (e) => {
+    setTanggal(e.target.value)
+  }
+
+  const handleKWaktu = (e) => {
+    setKWaktu(e.target.value)
+  }
+
+  const handleKLokasi = (e) => {
+    setKLokasi(e.target.value)
+  }
+
+  const handleKTanggal = (e) => {
+    setKTanggal(e.target.value)
+  }
+
+  const handleWaktu = (e) => {
+    setWaktu(e.target.value)
+  }
+
+  const handleKategori = (e) => {
+    setKategori(e.target.value)
+  }
+
+  const handleTotal = (e) => {
+    setTotal(e.target.value)
+  }
+
+  useEffect(() => {
+    getUser()
+  })
+
+  const getUser = async () => {
+    const token = localStorage.getItem('refresh_token')
+    try {
+      const response = await axios.get(`http://localhost:3000/me`, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      setIdUser(response.data.id)
+    } catch (error) {
+      console.error('Error fetching sopir data:', error)
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = {
+      tipe_identitas: tipeIdentitas,
+      no_identitas: noIdentitas,
+      nama: nama,
+      no_telp: noTelp,
+      alamat: alamat,
+      kota: kota,
+      plokasi: plokasiEnabled ? plokasi : null,
+      ptanggal: plokasiEnabled ? ptanggal : null,
+      pwaktu: plokasiEnabled ? pwaktu : null,
+      klokasi: klokasiEnabled ? klokasi : null,
+      ktanggal: klokasiEnabled ? ktanggal : null,
+      kwaktu: klokasiEnabled ? kwaktu : null,
+      kategori: kategori,
+      total: total,
+      user_id: iduser,
+    }
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/pembayaran',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            // Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      console.log('sukses', response)
+      // navigate('/pelanggan')
+      window.location.reload()
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  return {
+    tipeIdentitas,
+    noIdentitas,
+    nama,
+    noTelp,
+    alamat,
+    kota,
+    plokasi,
+    ptanggal,
+    pwaktu,
+    klokasi,
+    ktanggal,
+    kwaktu,
+    kategori,
+    handleSubmit,
+    handleAlamat,
+    handleKota,
+    handleLokasi,
+    handleNama,
+    handleNoIdentitas,
+    handleNoTelp,
+    handleTanggal,
+    handleTipeIdentitas,
+    handleWaktu,
+    handleKTanggal,
+    handleKWaktu,
+    handleKLokasi,
+    handleKategori,
+    total,
+    handleTotal,
+    klokasiEnabled,
+    plokasiEnabled,
+    handleCheckboxChange,
+    handleKCheckboxChange,
   }
 }

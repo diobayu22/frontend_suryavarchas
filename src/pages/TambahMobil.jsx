@@ -13,14 +13,28 @@ const AddMobilPage = () => {
     tahun,
     pajak,
     kategori_id,
+    tempat_duduk,
+    agasi,
+    transmisi,
+    bahan_bakar,
+    deskripsi,
+    jumlah,
+    harga,
     handleJenisChange,
     handleMerkChange,
     handleTahunChange,
     handlePajakChange,
     handleKategoriIdChange,
+    handleTempatDudukChange,
+    handleAgasiChange,
+    handleTransmisiChange,
+    handleBahanBakarChange,
+    handleDeskripsiChange,
+    handleJumlahChange,
+    handleHargaChange,
     handleSubmit,
-    file,
-    imagePreview,
+    files,
+    imagePreviews,
     handleImageChange,
   } = MobilAddData()
 
@@ -38,6 +52,7 @@ const AddMobilPage = () => {
       console.error('Error fetching categories:', error)
     }
   }
+
   const handleLogout = (e) => {
     e.preventDefault()
     // Clear the token and perform logout
@@ -45,6 +60,7 @@ const AddMobilPage = () => {
     console.log('User logged out')
     navigate('/login') // Redirect to login page after logout
   }
+
   return (
     <div>
       <div className="container-admin">
@@ -183,7 +199,7 @@ const AddMobilPage = () => {
                   <div className="form-group">
                     <label htmlFor="pajak">Pajak</label>
                     <input
-                      type="number"
+                      type="date"
                       name="pajak"
                       id="pajak"
                       className="form-control input-form"
@@ -209,28 +225,113 @@ const AddMobilPage = () => {
                       ))}
                     </select>
                   </div>
+                  <div className="form-group">
+                    <label htmlFor="tempat_duduk">Tempat Duduk</label>
+                    <input
+                      type="number"
+                      name="tempat_duduk"
+                      id="tempat_duduk"
+                      className="form-control input-form"
+                      placeholder="Jumlah Tempat Duduk"
+                      value={tempat_duduk}
+                      onChange={handleTempatDudukChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="agasi">Agasi</label>
+                    <input
+                      type="text"
+                      name="agasi"
+                      id="agasi"
+                      className="form-control input-form"
+                      placeholder="Agasi Mobil"
+                      value={agasi}
+                      onChange={handleAgasiChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="transmisi">Transmisi</label>
+                    <input
+                      type="text"
+                      name="transmisi"
+                      id="transmisi"
+                      className="form-control input-form"
+                      placeholder="Transmisi Mobil"
+                      value={transmisi}
+                      onChange={handleTransmisiChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="bahan_bakar">Bahan Bakar</label>
+                    <input
+                      type="text"
+                      name="bahan_bakar"
+                      id="bahan_bakar"
+                      className="form-control input-form"
+                      placeholder="Bahan Bakar Mobil"
+                      value={bahan_bakar}
+                      onChange={handleBahanBakarChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="deskripsi">Deskripsi</label>
+                    <textarea
+                      name="deskripsi"
+                      id="deskripsi"
+                      className="form-control input-form"
+                      placeholder="Deskripsi Mobil"
+                      value={deskripsi}
+                      onChange={handleDeskripsiChange}
+                    ></textarea>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="jumlah">Jumlah</label>
+                    <input
+                      type="number"
+                      name="jumlah"
+                      id="jumlah"
+                      className="form-control input-form"
+                      placeholder="Jumlah Mobil"
+                      value={jumlah}
+                      onChange={handleJumlahChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="harga">Harga</label>
+                    <input
+                      type="number"
+                      name="harga"
+                      id="harga"
+                      className="form-control input-form"
+                      placeholder="Harga Mobil"
+                      value={harga}
+                      onChange={handleHargaChange}
+                    />
+                  </div>
                   <div className="form-group mb-4">
                     <label
-                      htmlFor="image"
+                      htmlFor="images"
                       className="block text-gray-700 text-sm font-bold mb-2"
                     >
-                      Image
+                      Images
                     </label>
                     <input
                       type="file"
-                      id="image"
-                      name="image"
+                      id="images"
+                      name="images"
                       onChange={handleImageChange}
+                      multiple
                       className="border rounded-md py-2 px-3 w-full focus:outline-none focus:shadow-outline"
                     />
-                    {imagePreview && (
+                    {imagePreviews.map((imagePreview, index) => (
                       <img
+                        key={index}
                         src={imagePreview}
                         alt="Image Preview"
                         className="mt-2 rounded-md max-w-full"
                         style={{ maxHeight: '200px' }}
                       />
-                    )}
+                    ))}
                   </div>
                   <button
                     type="submit"

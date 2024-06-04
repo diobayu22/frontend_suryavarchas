@@ -49,10 +49,12 @@ const MobilPage = () => {
     setSelectedMobil(mobil)
     setShowModal(true)
   }
+
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' }
     return new Date(dateString).toLocaleDateString(undefined, options)
   }
+
   const handleLogout = (e) => {
     e.preventDefault()
     // Clear the token and perform logout
@@ -60,6 +62,8 @@ const MobilPage = () => {
     console.log('User logged out')
     navigate('/login') // Redirect to login page after logout
   }
+
+  console.log('data mobil', mobils)
   return (
     <div>
       <div className="container-admin">
@@ -177,72 +181,16 @@ const MobilPage = () => {
                   Tambah Mobil
                 </button>
               </div>
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <table className="table">
                 <thead>
                   <tr>
-                    <th
-                      style={{
-                        padding: '8px',
-                        backgroundColor: '#f2f2f2',
-                        textAlign: 'left',
-                      }}
-                    >
-                      No
-                    </th>
-                    <th
-                      style={{
-                        padding: '8px',
-                        backgroundColor: '#f2f2f2',
-                        textAlign: 'left',
-                      }}
-                    >
-                      No ID
-                    </th>
-                    <th
-                      style={{
-                        padding: '8px',
-                        backgroundColor: '#f2f2f2',
-                        textAlign: 'left',
-                      }}
-                    >
-                      Jenis
-                    </th>
-                    <th
-                      style={{
-                        padding: '8px',
-                        backgroundColor: '#f2f2f2',
-                        textAlign: 'left',
-                      }}
-                    >
-                      Merk
-                    </th>
-                    <th
-                      style={{
-                        padding: '8px',
-                        backgroundColor: '#f2f2f2',
-                        textAlign: 'left',
-                      }}
-                    >
-                      Tahun
-                    </th>
-                    <th
-                      style={{
-                        padding: '8px',
-                        backgroundColor: '#f2f2f2',
-                        textAlign: 'left',
-                      }}
-                    >
-                      Pajak
-                    </th>
-                    <th
-                      style={{
-                        padding: '8px',
-                        backgroundColor: '#f2f2f2',
-                        textAlign: 'left',
-                      }}
-                    >
-                      Actions
-                    </th>
+                    <th>No</th>
+                    <th>No ID</th>
+                    <th>Jenis</th>
+                    <th>Merk</th>
+                    <th>Tahun</th>
+                    <th>Pajak</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -254,22 +202,21 @@ const MobilPage = () => {
                       <td>{mobil.merk}</td>
                       <td>{mobil.tahun}</td>
                       <td>{formatDate(mobil.pajak)}</td>
-
                       <td>
                         <div>
                           <FontAwesomeIcon
                             icon={faEdit}
-                            style={{ cursor: 'pointer', marginRight: '10px' }}
+                            className="icon"
                             onClick={() => handleEdit(mobil.id)}
                           />
                           <FontAwesomeIcon
                             icon={faTrash}
-                            style={{ cursor: 'pointer', marginRight: '10px' }}
+                            className="icon"
                             onClick={() => handleDelete(mobil.id)}
                           />
                           <FontAwesomeIcon
                             icon={faEye}
-                            style={{ cursor: 'pointer' }}
+                            className="icon"
                             onClick={() => handleShow(mobil)}
                           />
                         </div>
@@ -295,11 +242,15 @@ const MobilPage = () => {
               <p>Merk: {selectedMobil.merk}</p>
               <p>Tahun: {selectedMobil.tahun}</p>
               <p>Pajak: {formatDate(selectedMobil.pajak)}</p>
-              <img
-                src={selectedMobil.url}
-                alt="Mobil"
-                style={{ maxWidth: '100%' }}
-              />
+              {/* Mengonversi string JSON menjadi array JavaScript */}
+              {JSON.parse(selectedMobil.urls).map((url, index) => (
+                <img
+                  key={index}
+                  src={url}
+                  alt={`Mobil ${index + 1}`}
+                  style={{ maxWidth: '100%', width: '30%' }}
+                />
+              ))}
             </div>
           </div>
         </div>

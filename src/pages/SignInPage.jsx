@@ -22,9 +22,9 @@ const SignInPage = () => {
           password: password,
         })
 
-        const { role, refresh_token } = response.data
+        const { role, accessToken } = response.data
         setRole(role)
-        localStorage.setItem('refresh_token', refresh_token)
+        localStorage.setItem('refresh_token', accessToken)
 
         if (role.toLowerCase() === 'admin') {
           navigate('/admin')
