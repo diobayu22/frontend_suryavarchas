@@ -31,7 +31,7 @@ const AddSopirPage = () => {
   }
   return (
     <div>
-      <div className="container-admin">
+      <div className="container-add">
         <aside className="sidebar">
           <img src="/images/admin/logo.png" className="logo" alt="Logo" />
           <nav>
@@ -132,62 +132,43 @@ const AddSopirPage = () => {
                   Tambah Sopir
                 </h3>
               </div>
-              <form action="" className="form sign-up">
-                <div className="login-wrapper my-auto">
-                  <div className="form-group">
+              <form action="">
+                <div className="form-input-group">
+
+                  <div className="form-input">
                     <label htmlFor="nama">Nama</label>
-                    <input
-                      type="text"
-                      name="nama"
-                      id="nama"
-                      className="form-control input-form"
-                      placeholder="TesyaEriana"
-                      value={nama}
-                      onChange={handleNama}
-                    />
+                    <input type="text" id="nama" name="nama" value={nama}
+                      onChange={handleNama} />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="no_telp">No Telp</label>
-                    <input
-                      type="number"
+
+                  <div className="form-input">
+                    <label htmlFor="noTelepon">No. Telp</label>
+                    <input style={{ width: "100%" }} type="number"
                       name="no_telp"
                       id="no_telp"
                       className="form-control input-form"
                       placeholder="089xxxxxxx"
                       value={no_telp}
-                      onChange={handleTelpChange}
-                    />
-                  </div>
-                  <div className="form-group mb-4">
-                    <label htmlFor="alamat">Alamat</label>
-                    <br />
-                    <textarea
-                      id="alamat"
-                      name="alamat"
-                      style={{
-                        width: '400px',
-                        height: '50px',
-                      }}
-                      className="border rounded-md py-2 px-3 focus:outline-none focus:shadow-outline"
-                      value={alamat}
-                      onChange={handleAlamatChange}
-                    />
+                      onChange={handleTelpChange} />
                   </div>
 
-                  <div className="form-group mb-4">
+
+
+
+                  <div className="form-input">
                     <label
                       htmlFor="image"
-                      className="block text-gray-700 text-sm font-bold mb-2"
+
                     >
                       Image
                     </label>
-                    <br />
+
                     <input
                       type="file"
                       id="image"
                       name="image"
                       onChange={handleImageChange}
-                      className="border rounded-md py-2 px-3 w-full focus:outline-none focus:shadow-outline"
+
                     />
                     <br />
                     {imagePreview && (
@@ -196,8 +177,14 @@ const AddSopirPage = () => {
                         alt="Image Preview"
                         className="mt-2 rounded-md max-w-full"
                         style={{ maxHeight: '200px' }}
+
                       />
                     )}
+                  </div>
+                  <div className="form-input">
+                    <label htmlFor="alamat">Alamat</label>
+                    <input type="text" id="alamat" name="alamat" value={alamat}
+                      onChange={handleAlamatChange} />
                   </div>
 
                   <button
@@ -207,6 +194,7 @@ const AddSopirPage = () => {
                   >
                     Simpan
                   </button>
+
                 </div>
               </form>
             </div>
@@ -218,3 +206,7 @@ const AddSopirPage = () => {
 }
 
 export default AddSopirPage
+
+
+
+

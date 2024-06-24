@@ -1,615 +1,770 @@
 /* Global */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+:root {
+  --header-height: 2rem;
+  --hue: 0;
+  --sat: 0%;
+  --title-color: hsl(var(--hue), var(--sat), 20%);
+  --title-color-dark: hsl(var(--hue), var(--sat), 0%);
+  --text-color: hsl(var(--hue), var(--sat), 46%);
+  --body-color: hsl(var(--hue), var(--sat), 98%);
+  --container-color: #fff;
+  --button-color: #fdc435;
+  --button-hover-color: #fdc43576; /* Tambahkan properti button-hover-color */
+
+  --body-font: "Roboto", sans-serif;
+
+  --big-font-size: 50px;
+
+  --h1-font-size: 2.25rem;
+  --h2-font-size: 1.5rem;
+  --h3-font-size: 1.25rem;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.875rem;
+  --smaller-font-size: 0.813rem;
+  --tiny-font-size: 0.625rem;
+
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  --mb-0-25: 0.25rem;
+  --mb-0-5: 0.5rem;
+  --mb-0-75: 0.75rem;
+  --mb-1: 1rem;
+  --mb-1-5: 1.5rem;
+  --mb-2: 2rem;
+  --mb-2-5: 2.5rem;
+  --mb-3: 3rem;
+
+  --z-tooltip: 10;
+  --z-fixed: 100;
+  --z-modal: 1000;
+}
 body {
-    font-family: roboto-flex;
+  font-family: var(--body-font);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--title-color);
+  font-weight: var(--font-semi-bold);
+}
+.desc {
+  color: var(--text-color);
+  padding-bottom: var(--mb-0-5);
+}
+
+.title {
+  font-size: var(--big-font-size);
+  padding-bottom: var(--mb-3);
 }
 
 .custom-button:hover {
-    background-color: orange;
-    color: #FFFFFF;
+  background-color: orange;
+  color: #ffffff;
 }
 
 /* Navbar.jsx */
 .main-nav a.navbar-brand {
-    color: white;
+  color: white;
 }
 .main-nav {
-    background-color: #F26240
+  background-color: #f26240;
 }
-.main-nav .navbar-nav a.nav-link {   
-    color: white;
-    font-weight: 600;
-    padding-top: 20px;
+.main-nav .navbar-nav a.nav-link {
+  color: white;
+  font-weight: 600;
+  padding-top: 20px;
 }
 .main-nav .navbar-nav a.nav-link.active,
 .main-nav .navbar-nav .nav-link:hover {
-    color: white
+  color: white;
 }
 .button1 {
-    text-decoration: none;
-    background-color: white;
-    border: 2px solid white;
-    border-radius: 10px;
-    color: orange;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 8px !important;
+  text-decoration: none;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: 10px;
+  color: orange;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 8px !important;
 }
 
 /* Hero.jsx */
 .banner {
-    background-color: #F26240;
-    width: 100%;
-    height: 700px;
-    padding-top: 100px;
-    position: relative;
+  background-color: #f26240;
+  width: 100%;
+  height: 800px;
+  padding-top: var(--mb-3);
+
+  position: relative;
 }
 .image-car {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: -10px;
-    width: 70%;
+  display: block;
+  padding-bottom: var(--mb-3);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -10px;
+  width: 70%;
 }
 .moto {
-    padding-top: 30px;
-    color: #FFFFFF;
-    font-size: 35px;
+  padding-top: var(--mb-3);
+  color: #ffffff;
+  font-size: var(--h1-font-size);
 }
-@media screen and (max-width: 767px){
-    .banner{
-        height: 500px;
-    }
-    .moto {
-        font-size:  20px;
-    }
+@media screen and (max-width: 767px) {
+  .banner {
+    height: 500px;
+  }
+  .moto {
+    font-size: var(--h3-font-size);
+  }
 }
 
 /* Search.jsx  */
 .search-section {
-    background: #fff;
+  background: #fff;
+  padding-bottom: var(--mb-3);
+  
 }
 .search-section .inner {
-    background: #fff;
-    border: 2px solid #e0e0e0;
-    padding: 40px 40px;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  padding: 40px 40px;
 
-    
-    margin-top: -70px;
-    position: relative;
-    z-index: 9;
-    border-radius: 10px;
+  margin-top: -70px;
+  position: relative;
+  z-index: 9;
+  border-radius: 10px;
 }
 .search-section .form-control,
 .search-section .form-select {
-    font-size: 14px;
-    font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 }
 .search-section button[type="submit"] {
-    width: 100%;
-    font-size: 16px;
-    background: #e75542;
-    border: 1px solid #e75542;
-    font-weight: 600;
+  width: 100%;
+  font-size: 16px;
+  background: #e75542;
+  border: 1px solid #e75542;
+  font-weight: 600;
 }
 @media (max-width: 767px) {
-    .search-section .form-control,
-    .search-section .form-select {
-        margin-bottom: 10px;
-    }
+  .search-section .form-control,
+  .search-section .form-select {
+    margin-bottom: 10px;
+  }
 }
 
 /* Services.jsx */
-.garasi_kami {
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+.vehicle-container {
+  display: flex;
+  gap: 100px;
 }
 .vehicle {
-    font-size: 24px;
-    text-decoration: none;
-    color: black;
-    padding-top: 30px;
+  font-size: 23px;
+  text-decoration: none;
+  color: black;
+  padding-top: 30px;
 }
 .vehicle-all {
-    font-size: 24px;
-    text-decoration: none;
-    color: #e75542;
+  font-size: 24px;
+  text-decoration: none;
+  color: #e75542;
 }
 
 /* Garage.jsx */
 .blog-item {
-    padding-top: 50px;
-    padding-bottom: 20px;
-
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
+
 .code {
-    padding-left: 10px;
+  padding-left: 10px;
 }
 span,
 i.code {
-    padding-right: 20px;
+  padding-right: 20px;
 }
 
 /* HowWeWork,jsx */
-.how-we-work{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    gap: 10px;
+.how-we-work {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 10px;
+  padding-bottom: var(--mb-3);
+}
+.Hww-title{
+    padding-bottom: var(--mb-1-5);
+    padding-top:var(--mb-1-5) ;
 }
 .how-we-work > .col > .orange-box {
-    margin: auto;
+  margin: auto;
 }
 .orange-box {
-    min-width: 250px;
-    width: 100%;
-    height: 280px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  min-width: auto;
+  width: 100%;
+  
+  height: 335px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 .logo-note {
-    width: 120px;
-    padding-top: 20px;
-
+  width: 95px;
+  padding-top: var(--mb-2);
+  
+}
+.content-container{
+    padding: var(--mb-0-75);
 }
 .cara-kerja-1 {
-    text-align: center;
-    font-size: 20px;
+  text-align: center;
+  font-size: 20px;
 }
 
 /* AboutUs.jsx */
 #about-me {
-    padding-top: 100px;
-    padding-bottom: 100px;
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-    color: black
+padding-bottom: var(--mb-3);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: black;
 }
 #about-me .col-md-6 {
-    padding: 20px;
+  padding: 20px;
 }
 .about-box {
-    height: 120px;
+  height: 120px;
 }
 .about-box .about-left {
-    height: 120px;
-    width: 20%;
-    float: left;
+  height: 120px;
+  width: 20%;
+  float: left;
 }
 .about-box .about-left .fa {
-    padding-top: 13px;
-    font-size: 50px;
+  padding-top: 13px;
+  font-size: 50px;
 }
 .about-box .about-right {
-    height: 120px;
-    width: 80%;
-    float: left;
+  height: 120px;
+  width: 80%;
+  float: left;
 }
 .about-box .about-right h4 {
-    padding-top: 10px;
-    padding-left: 15px;
-    text-align: left;
+  padding-top: 10px;
+  padding-left: 15px;
+  text-align: left;
 }
 .about-box .about-right p {
-    padding-left: 15px;
-    text-align: left;
+  padding-left: 15px;
+  text-align: left;
 }
 
 /*-----------------Testimonials-------------------*/
-#testimonials
-{
-    padding-top: 100px;
-    padding-bottom: 100px;
+.header-testimoni{
+    gap: 123px;
 }
-#testimonials .col-md-4
-{
-    padding: 10px 30px;
+.profil-user{
+    gap: 25px;
 }
-#testimonials img
-{
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-left: -30px;
-    margin-top: -40px;
-    border: 5px solid #fff;
-    margin-bottom: 30px;
+.komentar{
+    width: 340px;
 }
-.review
-{
-    font-size: 16px;
-    padding: 10px 10px 10px 30px;
+.testimoni-box-container {
+    background-color: rgba(189, 123, 108, 0.27); /* Warna latar belakang dengan opasitas 27% */
+    width: auto;
+    padding: 25px;
     border-radius: 10px;
-    box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.2);
+    margin-bottom: 100px;
 }
-.review .fa-twitter
-{
-    color: #013f7e;
+.username p{
+    font-size: var(--h3-font-size);
+    font-weight:var(--font-medium);
 }
-#testimonials span
-{
-    color: #013f7e;
-    font-weight: 600;
-    font-size: 18px;
+.testimoni-box{
+    gap: 75px;
 }
-#testimonials h1
-{
-    margin-bottom: 20px;
-    color: #013f7e;
+.arrow-back{
+    transform: rotate(180deg);
+    padding-left: 50px; 
 }
-#testimonials p
-{
-    padding-bottom: 20px; 
+.bullet{
+    background-color: #DDE0E4;
+    border-radius: 100%;
+    margin-right: 15px;
+    
 }
-#testimonials .middle
-{
-    margin-bottom: -30px;
-    margin-top: -30px;
+.ellips{
+    padding-left: 75px;
 }
+.pagination-button{
+    display: flex;
+    gap: 875px;
+    padding-bottom: var(--mb-3);
+}
+
 
 /* Footer.jsx */
 .footer {
-    padding: 100px 20px 15px;
-    background-color: black;
-    color: #fff;
+  
+  background-color: #0E0604;
+  color: #fff;
+  height: 538px;
+
+}
+.footer-row{
+   padding-top: 10%;
+    gap: 160px;
+   
 }
 .footer-logo {
-    width: 150px;
-    margin-top: 15px;
-    margin-bottom: 15px;  
+  width: 300px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .footer h4 {
-    text-align: left;
-    margin-top: 15px;
-    margin-bottom: 25px;
+  text-align: left;
+  margin-top: 15px;
+  margin-bottom: 25px;
 }
-.logo-1 {
-    padding-right: 10px;
+
+.social-media-container img{
+ padding-right: 26px;
 }
-.hehe{
-    width: 50%;
-    margin-left: 50%;
+p img {
+    margin-right: 25px; 
+    padding-bottom: var(--mb-1);
+}
+.footer-title h4{
+    padding-bottom: var(--mb-1);
+    font-size: 35px;
+
+}
+.logo-desc-container{
+    width: 300px;
+}                   
+.logo-desc h5{
+    font-size: var(--h2-font-size);
+}
+.footer h4 {
+    font-size: var(--h1-font-size); /* Sesuaikan dengan ukuran yang diinginkan */
+}
+
+.logo-1 img{
+  padding-right: 10px;
+  width: 50px;
+}
+.hehe {
+  width: 50%;
+  margin-left: 50%;
 }
 @media only screen and (max-width: 767px) {
-    .hehe, .car {
-        display: flex;
-        width: 100%;
-        text-align: center;
-        justify-content: center;
-        margin-left: unset;
-    }
+  .hehe,
+  .car {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    margin-left: unset;
+  }
 }
 
 /* CarCard.jsx */
-.car-card{
-    text-decoration: none;
-    display: unset;
-    color: unset;
+.container-card {
+  
+  padding-bottom: 100px;
+  
+}
+.car-card {
+  text-decoration: none;
+  display: unset;
+  color: unset;
 }
 
 /* CarDetailPage */
-.detail-container{
-    margin-top: 75px;
-    margin-bottom: 75px;
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
+.detail-container {
+  margin-top: 75px;
+  margin-bottom: 75px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
 }
-
+.button-all{
+  padding-bottom: var(--mb-3);
+}
+.vehicle-all-detail {
+  font-size: 23px;
+  text-decoration: none;
+  color: #e75542;
+  padding-left:655px;
+  padding-bottom: var(500px);
+}
+.vektor-next{
+  transform: rotate(180deg);
+  margin-left: 125px;
+  
+}
+.vektor-back{
+  padding-right: 125px;
+  
+}
 /* ImageGallery */
-.image-gallery-container{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.image-gallery-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.gallery{
-    display: flex;
-    gap: 5px;
+.gallery {
+  display: flex;
+  gap: 5px;
 }
-.gallery > .image{
-    width: auto;
-    height: 108px;
+.gallery > .image {
+  width: auto;
+  height: 108px;
 }
 @media only screen and (min-width: 1000px) {
-    .detail-container{
-        flex-direction: row;
-    }
+  .detail-container {
+    flex-direction: row;
+  }
 }
 
 /* CarDetail.jsx */
-.car-detail-container > h4{
-    margin-top: 20px;
+.car-detail-container > h4 {
+  margin-top: 20px;
 }
-.specification{
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+.specification {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
-.spec{
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
+.spec-title{
+  color: hsl(var(--hue), var(--sat), 46%);
+}
+.spec-desc{
+  color: black;
+}
+.car-title, .car-spec, .specification, .detail-desc,.car-desc{
+  padding-bottom: var(--mb-1);
+}
+.next{
+  padding-bottom: 100px;
+}
+.detail-desc{
+  color: hsl(var(--hue), var(--sat), 46%);
+}
+.spec {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
 }
 .spec div p {
-    margin: 0;
+  margin: 0;
 }
-.spec div p:first-child{
-    font-weight: 700;
+.spec div p:first-child {
+  font-weight: 700;
 }
-.rent{
-    background-color: #F26240;
-    border: unset;
-    outline: unset;
-    padding: 10px 20px;
+.rent {
+  background-color: #f26240;
+  border: unset;
+  outline: unset;
+  padding: 10px 20px;
 }
-.rent:hover{
-    background-color: #F26240;
+.rent:hover {
+  background-color: #f26240;
 }
 
 /* Welcome.jsx */
-.welcome{
-    display: flex;
-    justify-content: space-between;
+.welcome {
+  display: flex;
+  justify-content: space-between;
 }
 .welcome > .form {
-    width: max-content;
+  width: max-content;
 }
-.side-welcome{
-    display: none;
+.side-welcome {
+  display: none;
 }
 
 @media only screen and (min-width: 767px) {
-    .side-welcome{
-        display: unset;
-    }
+  .side-welcome {
+    display: unset;
+  }
 }
 
 /* SignInPage.jsx */
-.form.sign-in{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.form.sign-in {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.login{
-    background-color: #F26240;
-    border: unset;
-    outline: unset;
-    padding: 10px 40px;
-    text-align: center;
-    width: fit-content;
-    align-self: flex-end;
+.login {
+  background-color: #f26240;
+  border: unset;
+  outline: unset;
+  padding: 10px 40px;
+  text-align: center;
+  width: fit-content;
+  align-self: flex-end;
 }
-.login:hover{
-    background-color: #F26240;
+.login:hover {
+  background-color: #f26240;
 }
-.login-wrapper{
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.login-wrapper {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.form-control.input-form{
-    width: 400px;
+.form-control.input-form {
+  width: 400px;
 }
-p.cta{
-    margin-top: 50px;
-    text-align: center;
+p.cta {
+  margin-top: 50px;
+  text-align: center;
 }
-.forget-pass{
-    text-align: right;
-    font-size: 10px;
+.forget-pass {
+  text-align: right;
+  font-size: 10px;
 }
 
 /* SignUpPage */
-.form.sign-up{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.form.sign-up {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* GaragePage.jsx */
-.garage-page{
-    margin-top: 150px;
+.garage-page {
+  margin-top: 150px;
+}
+
+
+.title-garasi{
+  padding-right: 855px;
+}
+.dropdown{
+  padding-bottom: var(--mb-3);
+}
+.btn-dropdown{
+  color: #e75542;
+  border: 2px solid #e75542;
+}
+.pagination a{
+  color: #e75542;
 }
 
 /* Summary.jsx */
-.rental-summary{
-    width: 100%;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.rental-summary {
+  width: 100%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 .car-rented {
-    display: flex;
-    gap: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #C3D4E9;
+  display: flex;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #c3d4e9;
 }
 .car-rented > img {
-    height: 108px;
-    width: auto;
+  height: 108px;
+  width: auto;
 }
-.detail-price, .total-price{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+.detail-price,
+.total-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
-.total-price{
-    margin-top: 100px;
-    align-items: center;
+.total-price {
+  margin-top: 100px;
+  align-items: center;
 }
 
 @media only screen and (min-width: 767px) {
-    .rental-summary{
-        width: 900px;
-    }
+  .rental-summary {
+    width: 900px;
+  }
 }
 
 /* CheckoutPage.jsx */
-.checkout{
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 50px;
+.checkout {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
 }
-.rent-detail-form{
-    width: 100%;
+.rent-detail-form {
+  width: 100%;
 }
 @media only screen and (min-width: 767px) {
-    .checkout{
-        gap: 100px;
-        flex-direction: row;
-    }
+  .checkout {
+    gap: 100px;
+    flex-direction: row;
+  }
 }
 
 /* FormGroup.jsx */
-.form-group{
-    margin-bottom: 50px;
+.form-group {
+  margin-bottom: 50px;
+  
 }
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 /* CheckoutPage.jsx */
-.form-input-group{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
+.form-input-group {
+  border: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+ 
+
 }
-.form-input{
-    display: flex;
-    flex-direction: column;
+.form-input {
+  display: flex;
+  flex-direction: column;
+  border: none !important;
+  
+
 }
-.form-input > input, .form-input > select {
-    border-radius: 10px;
-    padding: 10px 20px;
-    outline: none;
-    border: none;
-    height: 55px;
-    background-color: #F6F7F9;
+.form-input > input,
+.form-input > select {
+  border-radius: 10px;
+  padding: 10px 20px;
+  outline: none;
+  border: none;
+  height: 55px;
+  background-color: #f6f7f9;
 }
 
 @media only screen and (min-width: 767px) {
-    .form-input-group{
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-    }
+  .form-input-group {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
 }
 
 .radio-pickup {
-    padding: 10px;
+  padding: 10px;
 }
 
 .checkbox-pembayaran {
-    background-color: #F6F7F9;
-    margin: 10px;
-    height: 70px;
-    display: flex;
-    text-align: center;
+  background-color: #f6f7f9;
+  margin: 10px;
+  height: 70px;
+  display: flex;
+  text-align: center;
 }
 
 .label-pembayaran {
-    padding-left: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .img-kartu {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .checkbox-form {
-    background-color: #F6F7F9;
-    margin: 10px;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #f6f7f9;
+  margin: 10px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .radio-kategori {
-    padding-right: 50px;
+  padding-right: 50px;
 }
 
 .label-agree {
-    font-size: 20px;
-   padding-left: 10px;
+  font-size: 20px;
+  padding-left: 10px;
 }
-
 
 /* PaymentModal.jsx */
-.payment-modal{
-    position: fixed;
-    z-index: 9999;
-    bottom: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #c4c4c43b;
-    display: flex;
-    justify-content: center;
+.payment-modal {
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #c4c4c43b;
+  display: flex;
+  justify-content: center;
 }
-.modal-content{
-    margin-top: 50px;
-    background-color: white;
-    width: 100%;
-    height: 90%;
+.modal-content {
+  margin-top: 50px;
+  background-color: white;
+  width: 100%;
+  height: 90%;
 }
 .modal-header {
-    padding: 10px 50px;
-    border-bottom: 1px solid black;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  padding: 10px 50px;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .modal-header button {
-    outline: none;
-    border: none;
-    background-color: unset;
+  outline: none;
+  border: none;
+  background-color: unset;
 }
 .modal-body {
-    padding: 10px;
+  padding: 10px;
 }
-.status{
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
+.status {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }
 .status img {
-    width: fit-content;
+  width: fit-content;
 }
-.rent-detail{
-    margin-top: 50px;
-    padding-left: 20px;
+.rent-detail {
+  margin-top: 50px;
+  padding-left: 20px;
 }
-.detail-rent-group{
-    margin-top: 40px;
+.detail-rent-group {
+  margin-top: 40px;
 }
 
 .hubungi-admin {
-    padding-left: 23px;
-    padding-top: 10px;
+  padding-left: 23px;
+  padding-top: 10px;
 }
 @media only screen and (min-width: 767px) {
-    .modal-content{
-        width: 50%;
-    }
+  .modal-content {
+    width: 50%;
+  }
 }

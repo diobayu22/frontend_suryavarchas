@@ -2,64 +2,50 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import CarCard from './CarCard'
 
-export default function Garage() {
-  const [carsByCategory, setCarsByCategory] = useState([])
+export default function Garage({ searchParams, isSearchClicked }) {
+  const [cars, setCars] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
-  const [activeCategory, setActiveCategory] = useState(null)
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('http://localhost:3000/mobil')
+        const response = await axios.get('http://localhost:3000/mobil', {
+          params: searchParams,
+        })
         const cars = response.data
-        console.log('cars', cars)
-        const categorizedCars = categorizeCars(cars)
-        setCarsByCategory(categorizedCars)
+        setCars(cars)
+        // Save searchParams to local storage
+        localStorage.setItem('searchParams', JSON.stringify(searchParams))
       } catch (error) {
         console.error('Error fetching cars:', error)
       }
     }
 
     fetchData()
-  }, [])
-
-  // Function to categorize cars based on their categories
-  const categorizeCars = (cars, category = null) => {
-    const filteredCars = category
-      ? cars.filter((car) => car.kategori?.namakategori === category)
-      : cars
-    const categorized = {}
-
-    console.log('filteredCars', filteredCars)
-    filteredCars.forEach((car) => {
-      const category = car.kategori?.namakategori || 'Lainnya'
-      console.log('data', category, car.kategori?.namakategori)
-      if (!categorized[category]) {
-        categorized[category] = []
-      }
-      categorized[category].push(car)
-    })
-    return Object.entries(categorized).map(([category, cars]) => ({
-      category,
-      cars,
-    }))
-  }
+  }, [searchParams])
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category)
-    setActiveCategory(category)
   }
-
-  console.log('data mobil', carsByCategory)
 
   const activeStyle = {
     color: 'orange',
     fontWeight: 'bold',
   }
 
+  let carsToDisplay = isSearchClicked
+    ? cars.filter((car) => car.jumlah > 0)
+    : cars
+
+  if (selectedCategory) {
+    carsToDisplay = carsToDisplay.filter(
+      (car) => car.kategori?.namakategori === selectedCategory,
+    )
+  }
+
   return (
     <div>
-      <div className="container-fluid garasi_kami  pt-5 pb-2">
+      <div className="container-fluid garasi_kami pt-5 pb-2">
         <div className="container">
           <h2 className="display-3 pb-5" id="layanan">
             Garasi Kami
@@ -70,13 +56,12 @@ export default function Garage() {
                 <div className="col-md-2">
                   <a
                     href="#"
-                    className={`vehicle ${
-                      activeCategory === 'Mobil Pribadi' ? 'active' : ''
-                    }`}
-                    onClick={() => handleCategoryClick('Mobil Pribadi')}
+                    className={`vehicle ${selectedCategory === 'Mobil Pribadi' ? 'active' : ''
+                      }`}
                     style={
-                      activeCategory === 'Mobil Pribadi' ? activeStyle : {}
+                      selectedCategory === 'Mobil Pribadi' ? activeStyle : {}
                     }
+                    onClick={() => handleCategoryClick('Mobil Pribadi')}
                   >
                     Mobil Pribadi
                   </a>
@@ -84,11 +69,10 @@ export default function Garage() {
                 <div className="col-md-1">
                   <a
                     href="#"
-                    className={`vehicle ${
-                      activeCategory === 'Bus' ? 'active' : ''
-                    }`}
+                    className={`vehicle ${selectedCategory === 'Bus' ? 'active' : ''
+                      }`}
+                    style={selectedCategory === 'Bus' ? activeStyle : {}}
                     onClick={() => handleCategoryClick('Bus')}
-                    style={activeCategory === 'Bus' ? activeStyle : {}}
                   >
                     Bus
                   </a>
@@ -96,13 +80,12 @@ export default function Garage() {
                 <div className="col-md-4">
                   <a
                     href="#"
-                    className={`vehicle ${
-                      activeCategory === 'Mobil Commercial' ? 'active' : ''
-                    }`}
-                    onClick={() => handleCategoryClick('Mobil Commercial')}
+                    className={`vehicle ${selectedCategory === 'Mobil Commercial' ? 'active' : ''
+                      }`}
                     style={
-                      activeCategory === 'Mobil Commercial' ? activeStyle : {}
+                      selectedCategory === 'Mobil Commercial' ? activeStyle : {}
                     }
+                    onClick={() => handleCategoryClick('Mobil Commercial')}
                   >
                     Mobil Commercial
                   </a>
@@ -114,11 +97,10 @@ export default function Garage() {
                 <div className="col-md-12">
                   <a
                     href="#"
-                    className={`vehicle-all ${
-                      activeCategory === null ? 'active' : ''
-                    }`}
+                    className={`vehicle-all ${selectedCategory === null ? 'active' : ''
+                      }`}
+                    style={selectedCategory === null ? activeStyle : {}}
                     onClick={() => handleCategoryClick(null)}
-                    style={activeCategory === null ? activeStyle : {}}
                   >
                     Lihat Semua
                   </a>
@@ -130,29 +112,13 @@ export default function Garage() {
       </div>
       <div className="blog-item pt-5 pb-5">
         <div className="container">
-          {selectedCategory === null
-            ? carsByCategory.map(({ category, cars }) => (
-                <div key={category}>
-                  <div className="row">
-                    {cars.map((car) => (
-                      <CarCard key={car.id} item={car} />
-                    ))}
-                  </div>
-                </div>
-              ))
-            : categorizeCars(
-                carsByCategory.flatMap((item) => item.cars),
-                selectedCategory,
-              ).map(({ category, cars }) => (
-                <div key={category}>
-                  <h3>{category}</h3>
-                  <div className="row">
-                    {cars.map((car) => (
-                      <CarCard key={car.id} item={car} />
-                    ))}
-                  </div>
-                </div>
-              ))}
+          <div className="row">
+            {carsToDisplay.length > 0 ? (
+              carsToDisplay.map((car) => <CarCard key={car.id} item={car} />)
+            ) : (
+              <p>Mobil Tidak Tersedia</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

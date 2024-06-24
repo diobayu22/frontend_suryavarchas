@@ -4,6 +4,12 @@
   height: 100vh;
 }
 
+.container-add {
+  display: flex;
+  width: 100%;
+  /* height: 100vh; */
+}
+
 .sidebar {
   background-color: black;
   color: white;
@@ -38,6 +44,43 @@
 }
 
 .sidebar nav ul li a:hover {
+  background-color: orangered;
+}
+
+.sd-profile {
+  background-color: white;
+  color: black;
+  width: 250px;
+  padding: 20px;
+}
+
+.sd-profile h2 {
+  text-align: center;
+}
+
+.sd-profile nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sd-profile nav ul li {
+  margin: 20px 0;
+}
+
+.sd-profile nav ul li a {
+  color: black;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.sd-profile nav ul li a i {
+  margin-right: 10px;
+}
+
+.sd-profile nav ul li a:hover {
   background-color: orangered;
 }
 
@@ -90,6 +133,10 @@ logo-a {
 
 .logo {
   padding-bottom: 30px;
+}
+
+.logo-1 {
+  padding-right: 8px;
 }
 
 /* Styling untuk modal */
@@ -175,4 +222,93 @@ logo-a {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+}
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-avatar {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.profile-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Tambahan CSS untuk avatar dan ikon edit */
+.avatar-circle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+}
+
+.edit-avatar {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.edit-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.profile-form {
+  flex: 1;
+}
+
+.profile-field {
+  margin-bottom: 20px;
+}
+
+.profile-field label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-field {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.edit-button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.save-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

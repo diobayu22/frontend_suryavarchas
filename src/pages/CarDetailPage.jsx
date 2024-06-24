@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import Layout from '../components/Layout'
 import CarDetail from '../components/parts/CarDetail/CarDetail'
-import ImageGalerry from '../components/parts/CarDetail/ImageGallery'
+import ImageGallery from '../components/parts/CarDetail/ImageGallery'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
 
-export default function CarDetailPage({ match }) {
-  const [carDetail, setCarDetail] = useState(null)
+export default function CarDetailPage() {
   const { id } = useParams()
+  const [carDetail, setCarDetail] = useState(null)
+
   useEffect(() => {
     async function fetchCarDetail() {
       try {
@@ -19,14 +20,20 @@ export default function CarDetailPage({ match }) {
     }
 
     fetchCarDetail()
-  }, [])
+  }, [id])
+
+  const searchParams = JSON.parse(localStorage.getItem('searchParams')) || {}
+
+  useEffect(() => {
+    console.log('Search Params:', searchParams)
+  }, [searchParams])
 
   return (
     <Layout>
       <div className="container detail-container">
         {carDetail && (
           <>
-            <ImageGalerry images={carDetail.urls} />
+            <ImageGallery images={carDetail.urls} />
             <CarDetail detail={carDetail} />
           </>
         )}

@@ -9,6 +9,7 @@ const PelangganPage = () => {
   const [showModal, setShowModal] = useState(false)
   const [pelanggan, setPelanggan] = useState([])
   const [selectedPelanggan, setSelectedPelanggan] = useState({})
+  const [imagePreview, setImagePreview] = useState('')
 
   useEffect(() => {
     getPelanggan()
@@ -19,6 +20,8 @@ const PelangganPage = () => {
       const response = await axios.get('http://localhost:3000/users')
       const userData = response.data.filter((user) => user.role === 'user')
       setPelanggan(userData)
+      setImagePreview(userData.url)
+      console.log('image', userData)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -28,6 +31,7 @@ const PelangganPage = () => {
     await getPelangganId(id)
     setShowModal(true)
   }
+
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('refresh_token')
@@ -66,6 +70,7 @@ const PelangganPage = () => {
         },
       })
       setSelectedPelanggan(response.data)
+      setImagePreview(response.data.url)
     } catch (error) {
       console.error('Error fetching pelanggan data:', error)
     }
@@ -155,6 +160,28 @@ const PelangganPage = () => {
             </div>
           </header>
           <section>
+
+            {/* <button
+              style={{
+                backgroundColor: 'green',
+                color: 'white',
+                padding: '8px 16px',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                marginTop: '8px',
+              }}
+              onClick={handleAdd}
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
+                style={{ marginRight: '8px' }}
+              />
+              Tambah Mobil
+            </button> */}
+
             <div
               style={{
                 backgroundColor: '#ffffff',
@@ -227,11 +254,11 @@ const PelangganPage = () => {
                       <td>{data.phone}</td>
                       <td>
                         <div>
-                          <FontAwesomeIcon
+                          {/* <FontAwesomeIcon
                             icon={faEdit}
                             style={{ cursor: 'pointer', marginRight: '10px' }}
                             onClick={() => handleEdit(data.id)}
-                          />
+                          /> */}
                           {/* <FontAwesomeIcon
                             icon={faTrash}
                             style={{ cursor: 'pointer', marginRight: '10px' }}
@@ -263,6 +290,15 @@ const PelangganPage = () => {
               <p>Nama: {selectedPelanggan.name}</p>
               <p>No. Telp: {selectedPelanggan.phone}</p>
               <p>Alamat: {selectedPelanggan.alamat}</p>
+              <p>Image</p>
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Image Preview"
+                  className="mt-2 rounded-md max-w-full"
+                  style={{ maxHeight: '200px' }}
+                />
+              )}
             </div>
           </div>
         </div>

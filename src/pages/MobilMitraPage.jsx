@@ -9,37 +9,52 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-const MobilPage = () => {
+const MobilMitraPage = () => {
   const navigate = useNavigate()
   const [mobils, setMobils] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [selectedMobil, setSelectedMobil] = useState(null)
+  const [userId, setUserId] = useState('')
 
   useEffect(() => {
-    fetchMobils()
+    const iduserss = localStorage.getItem('iduserlogin')
+    setUserId(iduserss)
+    if (iduserss) {
+      fetchMobils(iduserss)
+    }
   }, [])
 
-  const fetchMobils = async () => {
+  const fetchMobils = async (iduserss) => {
     try {
-      const response = await axios.get('http://localhost:3000/mobil')
+      const response = await axios.get(
+        `http://localhost:3000/mobil/user/${iduserss}`,
+      )
+      // Filter data mobil berdasarkan user_id yang cocok
+      console.log('mobils', iduserss)
+
       setMobils(response.data)
+      console.log('mobils', filteredMobils, iduserss)
     } catch (error) {
       console.error('Error fetching mobils:', error)
     }
   }
 
+  // const filteredMobils = mobils.filter((mobil) => mobil.user_id === 3)
+
+  // console.log('filteredMobils', filteredMobils)
+
   const handleAdd = () => {
-    navigate('/mobiladd')
+    navigate('/mobiladdmitra')
   }
 
   const handleEdit = (id) => {
-    navigate(`/mobiledit/${id}`)
+    navigate(`/mobileditmitra/${id}`)
   }
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3000/mobil/${id}`)
-      fetchMobils()
+      fetchMobils(userId)
     } catch (error) {
       console.error('Error deleting mobil:', error)
     }
@@ -63,7 +78,6 @@ const MobilPage = () => {
     navigate('/login') // Redirect to login page after logout
   }
 
-  console.log('data mobil', mobils)
   return (
     <div>
       <div className="container-admin">
@@ -72,7 +86,7 @@ const MobilPage = () => {
           <nav>
             <ul>
               <li>
-                <a href="/admin">
+                <a href="/mitra">
                   <img
                     className="logo-1"
                     src="/images/admin/Vector.svg"
@@ -81,54 +95,14 @@ const MobilPage = () => {
                   Home
                 </a>
               </li>
-              <li>
-                <a href="/sopir">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/logo-1.svg"
-                    alt=""
-                  />{' '}
-                  Sopir
-                </a>
-              </li>
               <li style={{ backgroundColor: 'orangered' }}>
-                <a href="/mobil">
+                <a href="/mobilmitra">
                   <img
                     className="logo-1"
-                    src="/images/admin/mobil.svg"
+                    src="/images/admin/Vector.svg"
                     alt=""
                   />{' '}
-                  Mobil
-                </a>
-              </li>
-              <li>
-                <a href="/pelanggan">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/logo-2.svg"
-                    alt=""
-                  />{' '}
-                  Pelanggan
-                </a>
-              </li>
-              <li>
-                <a href="/penjadwalan">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/penjadwalan.svg"
-                    alt=""
-                  />{' '}
-                  Penjadwalan
-                </a>
-              </li>
-              <li>
-                <a href="/laporan">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/logo-4.svg"
-                    alt=""
-                  />{' '}
-                  Laporan
+                  Mobil Mitra
                 </a>
               </li>
               <div className="logout-admin">
@@ -179,8 +153,8 @@ const MobilPage = () => {
                     <th>Jenis</th>
                     <th>Merk</th>
                     <th>Tahun</th>
+                    <th>Harga/hari</th>
                     <th>Pajak</th>
-                    <th>Harga</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -192,24 +166,25 @@ const MobilPage = () => {
                       <td>{mobil.jenis}</td>
                       <td>{mobil.merk}</td>
                       <td>{mobil.tahun}</td>
-                      <td>{formatDate(mobil.pajak)}</td>
                       <td>{mobil.harga}</td>
+                      <td>{formatDate(mobil.pajak)}</td>
                       <td>
                         <div>
                           <FontAwesomeIcon
                             icon={faEdit}
-                            className="icon"
                             style={{ cursor: 'pointer', marginRight: '10px' }}
+                            className="icon"
                             onClick={() => handleEdit(mobil.id)}
                           />
                           <FontAwesomeIcon
                             icon={faTrash}
-                            className="icon"
                             style={{ cursor: 'pointer', marginRight: '10px' }}
+                            className="icon"
                             onClick={() => handleDelete(mobil.id)}
                           />
                           <FontAwesomeIcon
                             icon={faEye}
+                            style={{ cursor: 'pointer', marginRight: '10px' }}
                             className="icon"
                             onClick={() => handleShow(mobil)}
                           />
@@ -253,4 +228,4 @@ const MobilPage = () => {
   )
 }
 
-export default MobilPage
+export default MobilMitraPage

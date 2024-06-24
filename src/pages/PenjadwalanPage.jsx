@@ -229,7 +229,8 @@ const PenjadwalanPage = () => {
                       <td>{penjadwalan.pwaktu}</td>
                       <td>
                         <div>
-                          {penjadwalan.status === 'Pending' ? (
+                          {penjadwalan.status === 'Pending' ||
+                          penjadwalan.status === 'Menunggu Konfirmasi' ? (
                             <>
                               <button
                                 style={{

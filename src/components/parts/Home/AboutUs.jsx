@@ -1,7 +1,7 @@
 export default function AboutUs() {
     return (
-        <section id="about-me">
-            <div className="container">
+        <section id="about-me ">
+            <div className="container pt-5 pb-5">
                 <div className="row">
                     <div className="hehe">
                         <h1>Tentang Kami</h1>

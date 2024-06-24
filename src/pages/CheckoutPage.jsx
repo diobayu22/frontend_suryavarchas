@@ -14,26 +14,15 @@ export default function CheckoutPage() {
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [carDetail, setCarDetail] = useState(null)
   const { id } = useParams()
-  // const [plokasiEnabled, setPlokasiEnabled] = useState(false)
-  // const [klokasiEnabled, setklokasiEnabled] = useState(false)
 
-  // // Fungsi untuk mengubah status checkbox
-  // const handleCheckboxChange = (e) => {
-  //   setPlokasiEnabled(e.target.checked)
-  // }
-  // const handlekCheckboxChange = (e) => {
-  //   setklokasiEnabled(e.target.checked)
-  // }
   const [checkboxAgree, setCheckboxAgree] = useState(false)
 
-  // Fungsi untuk mengubah status ceklis checkbox
   const handleACheckboxChange = (e) => {
     setCheckboxAgree(e.target.checked)
   }
 
-  // Logika untuk menentukan apakah button harus di-disable
   const isButtonDisabled = !checkboxAgree
-  console.log('data id', id)
+
   useEffect(() => {
     async function fetchCarDetail() {
       try {
@@ -45,22 +34,16 @@ export default function CheckoutPage() {
     }
 
     fetchCarDetail()
-  }, [])
-  useEffect(() => {}, [showPaymentModal])
+  }, [id])
 
-  // Fungsi untuk menghitung total harga termasuk pajak
+  // const calculateTotal = () => {
+  //   if (!carDetail || isNaN(carDetail.harga)) {
+  //     return 0
+  //   }
+  //   return carDetail.harga + carDetail.harga * 0.05
+  // }
 
-  const calculateTotal = () => {
-    // Periksa jika carDetail null atau harga tidak valid
-    if (!carDetail || isNaN(carDetail.harga)) {
-      return 0 // Kembalikan 0 jika harga tidak valid
-    }
-    return carDetail.harga + carDetail.harga * 0.05 // Hitung total termasuk pajak
-  }
-
-  const bayartotal = calculateTotal()
-
-  console.log('harga total', bayartotal, carDetail?.harga)
+  // const bayartotal = calculateTotal()
 
   const {
     tipeIdentitas,
@@ -89,14 +72,30 @@ export default function CheckoutPage() {
     handleKWaktu,
     handleKLokasi,
     handleKategori,
-    kategori,
     total,
     handleTotal,
     klokasiEnabled,
     plokasiEnabled,
     handleCheckboxChange,
     handleKCheckboxChange,
+    idMobil,
+    setIdMobil,
+    metode,
+    handleMetode,
+    bayartotal,
   } = PelangganAddDataUser()
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault()
+    handleSubmit(e) // Assuming handleSubmit is an asynchronous function that handles form submission
+    setShowPaymentModal(true) // Show the payment modal after form submission
+  }
+
+  const searchParams = JSON.parse(localStorage.getItem('searchParams')) || {}
+
+  useEffect(() => {
+    console.log('Search Params:', searchParams)
+  }, [searchParams])
 
   return (
     <Layout>
@@ -113,6 +112,7 @@ export default function CheckoutPage() {
                   value={tipeIdentitas}
                   onChange={handleTipeIdentitas}
                 >
+                  <option value="">Pilih Identitas</option>
                   <option value="KTP">KTP</option>
                   <option value="SIM">SIM</option>
                   <option value="Kartu Pelajar">Kartu Pelajar</option>
@@ -195,6 +195,7 @@ export default function CheckoutPage() {
               <div className="form-input-group">
                 <div className="form-input">
                   <label htmlFor="lokasi">Lokasi</label>
+
                   <input
                     type="text"
                     id="lokasi"
@@ -301,20 +302,45 @@ export default function CheckoutPage() {
             </div>
           </FormGroup>
 
-          {/* <FormGroup item={{ title: 'Metode Pembayaran', desc: 'Pilih Metode Pembayaran kamu', stepNow: '3' }}>
-                        <div className="checkbox-pembayaran">
-                            <input type="radio" id="css" name="fav_language" value="CSS" />
-                            <label className="label-pembayaran" htmlFor="waktu">BRI</label>
-                            <img className="img-kartu" src="/images/global/bri.png" alt="" />
-                        </div>
+          <FormGroup
+            item={{
+              title: 'Metode Pembayaran',
+              desc: 'Pilih Metode Pembayaran kamu',
+              stepNow: '3',
+            }}
+          >
+            <div className="checkbox-pembayaran">
+              <input
+                type="radio"
+                id="css"
+                name="fav_language"
+                value="BRI"
+                onChange={handleMetode}
+              />
+              <label className="label-pembayaran" htmlFor="waktu">
+                BRI
+              </label>
+              <img className="img-kartu" src="/images/global/bri.png" alt="" />
+            </div>
 
-                        <div className="checkbox-pembayaran">
-                            <input type="radio" id="css" name="fav_language" value="CSS" />
-                            <label className="label-pembayaran" htmlFor="waktu">Mandiri</label>
-                            <img className="img-kartu" src="/images/global/mandiri.png" alt="" />
-                        </div>
-
-                    </FormGroup> */}
+            <div className="checkbox-pembayaran">
+              <input
+                type="radio"
+                id="css"
+                name="fav_language"
+                value="MANDIRI"
+                onChange={handleMetode}
+              />
+              <label className="label-pembayaran" htmlFor="waktu">
+                Mandiri
+              </label>
+              <img
+                className="img-kartu"
+                src="/images/global/mandiri.png"
+                alt=""
+              />
+            </div>
+          </FormGroup>
 
           <FormGroup
             item={{
@@ -363,7 +389,7 @@ export default function CheckoutPage() {
             {/* Button dengan logika disabled */}
             <button
               className="btn btn-primary login m-3"
-              onClick={handleSubmit}
+              onClick={handleFormSubmit}
               disabled={isButtonDisabled}
             >
               Rent Now
@@ -376,12 +402,18 @@ export default function CheckoutPage() {
           carDetail={carDetail}
         />
       </div>
-      {/* {showPaymentModal && (
+      {showPaymentModal && (
         <PaymentModal
           showPaymentModal={showPaymentModal}
           setShowPaymentModal={setShowPaymentModal}
+          metode={metode}
+          merk={carDetail}
+          tanggalpenjemputan={ptanggal}
+          lokasipenjemputan={plokasi}
+          waktupenjemputan={pwaktu}
+          bayartotal={bayartotal}
         />
-      )} */}
+      )}
     </Layout>
   )
 }

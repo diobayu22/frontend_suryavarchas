@@ -29,7 +29,7 @@ const EditSopirPage = () => {
   }
   return (
     <div>
-      <div className="container-admin">
+      <div className="container-add">
         <aside className="sidebar">
           <img src="/images/admin/logo.png" className="logo" alt="Logo" />
           <nav>
@@ -130,51 +130,38 @@ const EditSopirPage = () => {
                   Edit Sopir
                 </h3>
               </div>
-              <form action="" className="form sign-up">
-                <div className="login-wrapper my-auto">
-                  <div className="form-group">
+              <form action="">
+                <div className="form-input-group">
+
+                  <div className="form-input">
                     <label htmlFor="nama">Nama</label>
                     <input
                       type="text"
                       name="nama"
                       id="nama"
-                      className="form-control input-form"
+
                       placeholder="TesyaEriana"
                       value={nama}
                       onChange={handleNama}
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="form-input">
                     <label htmlFor="no_telp">No Telp</label>
                     <input
                       type="number"
                       name="no_telp"
                       id="no_telp"
-                      className="form-control input-form"
+
                       placeholder="089xxxxxxx"
                       value={no_telp}
                       onChange={handleTelpChange}
                     />
                   </div>
-                  <div className="form-group mb-4">
-                    <label htmlFor="alamat">Alamat</label>
-                    <br />
-                    <textarea
-                      id="alamat"
-                      name="alamat"
-                      style={{
-                        width: '400px',
-                        height: '200px',
-                      }}
-                      className="border rounded-md py-2 px-3 focus:outline-none focus:shadow-outline"
-                      value={alamat}
-                      onChange={handleAlamatChange}
-                    />
-                  </div>
-                  <div className="form-group mb-4">
+
+                  <div className="form-input">
                     <label
                       htmlFor="image"
-                      className="block text-gray-700 text-sm font-bold mb-2"
+
                     >
                       Image
                     </label>
@@ -184,7 +171,7 @@ const EditSopirPage = () => {
                       id="image"
                       name="image"
                       onChange={handleImageChange}
-                      className="border rounded-md py-2 px-3 w-full focus:outline-none focus:shadow-outline"
+
                     />
                     <br />
                     {imagePreview && (
@@ -195,6 +182,19 @@ const EditSopirPage = () => {
                         style={{ maxHeight: '200px' }}
                       />
                     )}
+                  </div>
+                  <div className="form-input">
+                    <label htmlFor="alamat">Alamat</label>
+                    <br />
+                    <input
+                      type="text"
+                      id="alamat"
+                      name="alamat"
+
+
+                      value={alamat}
+                      onChange={handleAlamatChange}
+                    />
                   </div>
                   <button
                     type="submit"

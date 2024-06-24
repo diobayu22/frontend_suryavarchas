@@ -22,14 +22,17 @@ const SignInPage = () => {
           password: password,
         })
 
-        const { role, accessToken } = response.data
+        const { role, accessToken, id } = response.data
         setRole(role)
         localStorage.setItem('refresh_token', accessToken)
+        localStorage.setItem('iduserlogin', id)
 
         if (role.toLowerCase() === 'admin') {
           navigate('/admin')
         } else if (role.toLowerCase() === 'user') {
           navigate('/')
+        } else if (role.toLowerCase() === 'mitra') {
+          navigate('/mitra')
         } else {
           console.log('Role not recognized')
         }

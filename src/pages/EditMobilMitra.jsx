@@ -3,9 +3,13 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { MobilAddData } from '../controller/MobilController'
+import {
+  MobilAddData,
+  MobilEditData,
+  MobilEditDataMitra,
+} from '../controller/MobilController'
 
-const AddMobilPage = () => {
+const EditMobilMitraPage = () => {
   const navigate = useNavigate()
   const {
     jenis,
@@ -36,9 +40,19 @@ const AddMobilPage = () => {
     files,
     imagePreviews,
     handleImageChange,
-  } = MobilAddData()
+  } = MobilEditDataMitra()
 
   const [categories, setCategories] = useState([])
+
+  let imageArray = []
+
+  try {
+    imageArray = JSON.parse(imagePreviews) || []
+  } catch (e) {
+    console.log('Error parsing imagePreviews:', e)
+  }
+
+  console.log('data image preview', imageArray)
 
   useEffect(() => {
     fetchCategories()
@@ -69,7 +83,7 @@ const AddMobilPage = () => {
           <nav>
             <ul>
               <li>
-                <a href="/admin">
+                <a href="/mitra">
                   <img
                     className="logo-1"
                     src="/images/admin/Vector.svg"
@@ -78,54 +92,14 @@ const AddMobilPage = () => {
                   Home
                 </a>
               </li>
-              <li>
-                <a href="/sopir">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/logo-1.svg"
-                    alt=""
-                  />{' '}
-                  Sopir
-                </a>
-              </li>
               <li style={{ backgroundColor: 'orangered' }}>
-                <a href="/mobil">
+                <a href="/mobilmitra">
                   <img
                     className="logo-1"
-                    src="/images/admin/mobil.svg"
+                    src="/images/admin/Vector.svg"
                     alt=""
                   />{' '}
-                  Mobil
-                </a>
-              </li>
-              <li>
-                <a href="/pelanggan">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/logo-2.svg"
-                    alt=""
-                  />{' '}
-                  Pelanggan
-                </a>
-              </li>
-              <li>
-                <a href="/penjadwalan">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/penjadwalan.svg"
-                    alt=""
-                  />{' '}
-                  Penjadwalan
-                </a>
-              </li>
-              <li>
-                <a href="/laporan">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/logo-4.svg"
-                    alt=""
-                  />{' '}
-                  Laporan
+                  Mobil Mitra
                 </a>
               </li>
               <div className="logout-admin">
@@ -155,201 +129,162 @@ const AddMobilPage = () => {
             >
               <div style={{ marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                  Tambah Mobil
+                  Edit Mobil
                 </h3>
               </div>
-              <form action="" onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <div className="form-input-group">
 
                   <div className="form-input">
-                    <label htmlFor="jenis">Jenis</label>
+                    <label>Jenis:</label>
                     <input
                       type="text"
-                      name="jenis"
-                      id="jenis"
 
-                      placeholder="Jenis Mobil"
                       value={jenis}
                       onChange={handleJenisChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="merk">Merk</label>
+                    <label>Merk:</label>
                     <input
                       type="text"
-                      name="merk"
-                      id="merk"
-
-                      placeholder="Merk Mobil"
+                      className="form-control"
                       value={merk}
                       onChange={handleMerkChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="tahun">Tahun</label>
+                    <label>Tahun:</label>
                     <input
-                      type="number"
-                      name="tahun"
-                      id="tahun"
-
-                      placeholder="Tahun Pembuatan"
+                      type="text"
+                      className="form-control"
                       value={tahun}
                       onChange={handleTahunChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="pajak">Pajak</label>
+                    <label>Pajak:</label>
                     <input
-                      type="date"
-                      name="pajak"
-                      id="pajak"
-
-                      placeholder="Pajak Mobil"
+                      type="text"
+                      className="form-control"
                       value={pajak}
                       onChange={handlePajakChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="kategori_id">Kategori</label>
-                    <select
-                      name="kategori_id"
-                      id="kategori_id"
-
+                    <label>Kategori:</label>
+                    <input
+                      type="text"
+                      className="form-control"
                       value={kategori_id}
                       onChange={handleKategoriIdChange}
-                    >
-                      <option value="">Pilih Kategori</option>
-                      {categories.map((category) => (
-                        <option key={category.id} value={category.id}>
-                          {category.namakategori}
-                        </option>
-                      ))}
-                    </select>
+                      required
+                    />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="tempat_duduk">Tempat Duduk</label>
+                    <label>Tempat Duduk:</label>
                     <input
-                      type="number"
-                      name="tempat_duduk"
-                      id="tempat_duduk"
-
-                      placeholder="Jumlah Tempat Duduk"
+                      type="text"
+                      className="form-control"
                       value={tempat_duduk}
                       onChange={handleTempatDudukChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="agasi">Agasi</label>
+                    <label>Agasi:</label>
                     <input
                       type="text"
-                      name="agasi"
-                      id="agasi"
-
-                      placeholder="Agasi Mobil"
+                      className="form-control"
                       value={agasi}
                       onChange={handleAgasiChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="transmisi">Transmisi</label>
+                    <label>Transmisi:</label>
                     <input
                       type="text"
-                      name="transmisi"
-                      id="transmisi"
-
-                      placeholder="Transmisi Mobil"
+                      className="form-control"
                       value={transmisi}
                       onChange={handleTransmisiChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="bahan_bakar">Bahan Bakar</label>
+                    <label>Bahan Bakar:</label>
                     <input
                       type="text"
-                      name="bahan_bakar"
-                      id="bahan_bakar"
-
-                      placeholder="Bahan Bakar Mobil"
+                      className="form-control"
                       value={bahan_bakar}
                       onChange={handleBahanBakarChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="deskripsi">Deskripsi</label>
-                    <input type="text"
-                      name="deskripsi"
-                      id="deskripsi"
-
-                      placeholder="Deskripsi Mobil"
+                    <label>Deskripsi:</label>
+                    <textarea
+                      className="form-control"
                       value={deskripsi}
                       onChange={handleDeskripsiChange}
-                    />
+                      required
+                    ></textarea>
                   </div>
                   <div className="form-input">
-                    <label htmlFor="jumlah">Jumlah</label>
+                    <label>Jumlah:</label>
                     <input
-                      type="number"
-                      name="jumlah"
-                      id="jumlah"
-
-                      placeholder="Jumlah Mobil"
+                      type="text"
+                      className="form-control"
                       value={jumlah}
                       onChange={handleJumlahChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label htmlFor="harga">Harga</label>
+                    <label>Harga:</label>
                     <input
-                      type="number"
-                      name="harga"
-                      id="harga"
-
-                      placeholder="Harga Mobil"
+                      type="text"
+                      className="form-control"
                       value={harga}
                       onChange={handleHargaChange}
+                      required
                     />
                   </div>
                   <div className="form-input">
-                    <label
-                      htmlFor="images"
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                      Images
-                    </label>
+                    <label>Gambar Mobil:</label>
                     <input
                       type="file"
-                      id="images"
-                      name="images"
+                      className="form-control"
                       onChange={handleImageChange}
                       multiple
-                      className="border rounded-md py-2 px-3 w-full focus:outline-none focus:shadow-outline"
                     />
-                    {imagePreviews.map((imagePreview, index) => (
-                      <img
-                        key={index}
-                        src={imagePreview}
-                        alt="Image Preview"
-                        className="mt-2 rounded-md max-w-full"
-                        style={{ maxHeight: '200px' }}
-                      />
-                    ))}
+                    <div className="image-previews">
+                      {imagePreviews.map((url, index) => (
+                        <img
+                          key={index}
+                          src={url}
+                          alt="Preview"
+                          style={{ maxWidth: '100px', margin: '10px' }}
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <br />
-                  <button
-                    type="submit"
-                    className="btn btn-primary login"
-
-                  >
+                  <button type="submit" className="btn btn-primary login">
                     Simpan
                   </button>
                 </div>
               </form>
+
             </div>
           </section>
-        </main >
-      </div >
+        </main>
+      </div>
     </div >
   )
 }
 
-export default AddMobilPage
+export default EditMobilMitraPage

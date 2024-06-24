@@ -32,7 +32,7 @@ const AddPelangganPage = () => {
   }
   return (
     <div>
-      <div className="container-admin">
+      <div className="container-add">
         <aside className="sidebar">
           <img src="/images/admin/logo.png" className="logo" alt="Logo" />
           <nav>

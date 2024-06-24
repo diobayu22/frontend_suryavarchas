@@ -3,8 +3,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
-import { MobilEditData } from '../controller/MobilController'
+import { MobilAddData, MobilEditData } from '../controller/MobilController'
 
 const EditMobilPage = () => {
   const navigate = useNavigate()
@@ -14,18 +13,42 @@ const EditMobilPage = () => {
     tahun,
     pajak,
     kategori_id,
+    tempat_duduk,
+    agasi,
+    transmisi,
+    bahan_bakar,
+    deskripsi,
+    jumlah,
+    harga,
     handleJenisChange,
     handleMerkChange,
     handleTahunChange,
     handlePajakChange,
     handleKategoriIdChange,
+    handleTempatDudukChange,
+    handleAgasiChange,
+    handleTransmisiChange,
+    handleBahanBakarChange,
+    handleDeskripsiChange,
+    handleJumlahChange,
+    handleHargaChange,
     handleSubmit,
-    file,
-    imagePreview,
+    files,
+    imagePreviews,
     handleImageChange,
   } = MobilEditData()
 
   const [categories, setCategories] = useState([])
+
+  let imageArray = []
+
+  try {
+    imageArray = JSON.parse(imagePreviews) || []
+  } catch (e) {
+    console.log('Error parsing imagePreviews:', e)
+  }
+
+  console.log('data image preview', imageArray)
 
   useEffect(() => {
     fetchCategories()
@@ -50,7 +73,7 @@ const EditMobilPage = () => {
 
   return (
     <div>
-      <div className="container-admin">
+      <div className="container-add">
         <aside className="sidebar">
           <img src="/images/admin/logo.png" className="logo" alt="Logo" />
           <nav>
@@ -142,113 +165,154 @@ const EditMobilPage = () => {
             >
               <div style={{ marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                  Edit Mobil
+                  Tambah Mobil
                 </h3>
               </div>
-              <form action="" className="form sign-up" onSubmit={handleSubmit}>
-                <div className="login-wrapper my-auto">
-                  <div className="form-group">
-                    <label htmlFor="jenis">Jenis</label>
+              <form onSubmit={handleSubmit}>
+                <div className="form-input-group">
+
+                  <div className="form-input">
+                    <label>Jenis:</label>
                     <input
                       type="text"
-                      name="jenis"
-                      id="jenis"
-                      className="form-control input-form"
-                      placeholder="Jenis Mobil"
+                      className="form-control"
                       value={jenis}
                       onChange={handleJenisChange}
+                      required
                     />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="merk">Merk</label>
+                  <div className="form-input">
+                    <label>Merk:</label>
                     <input
                       type="text"
-                      name="merk"
-                      id="merk"
-                      className="form-control input-form"
-                      placeholder="Merk Mobil"
+                      className="form-control"
                       value={merk}
                       onChange={handleMerkChange}
+                      required
                     />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="tahun">Tahun</label>
+                  <div className="form-input">
+                    <label>Tahun:</label>
                     <input
-                      type="number"
-                      name="tahun"
-                      id="tahun"
-                      className="form-control input-form"
-                      placeholder="Tahun Pembuatan"
+                      type="text"
+                      className="form-control"
                       value={tahun}
                       onChange={handleTahunChange}
+                      required
                     />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="pajak">Pajak</label>
+                  <div className="form-input">
+                    <label>Pajak:</label>
                     <input
-                      type="date"
-                      name="pajak"
-                      id="pajak"
-                      className="form-control input-form"
-                      placeholder="Pajak Mobil"
+                      type="text"
+                      className="form-control"
                       value={pajak}
                       onChange={handlePajakChange}
+                      required
                     />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="kategori_id">Kategori</label>
-                    <select
-                      name="kategori_id"
-                      id="kategori_id"
-                      className="form-control input-form"
+                  <div className="form-input">
+                    <label>Kategori:</label>
+                    <input
+                      type="text"
+                      className="form-control"
                       value={kategori_id}
                       onChange={handleKategoriIdChange}
-                    >
-                      <option value="">Pilih Kategori</option>
-                      {categories.map((category) => (
-                        <option key={category.id} value={category.id}>
-                          {category.namakategori}
-                        </option>
-                      ))}
-                    </select>
+                      required
+                    />
                   </div>
-                  <div className="form-group mb-4">
-                    <label
-                      htmlFor="image"
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                      Image
-                    </label>
+                  <div className="form-input">
+                    <label>Tempat Duduk:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={tempat_duduk}
+                      onChange={handleTempatDudukChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-input">
+                    <label>Agasi:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={agasi}
+                      onChange={handleAgasiChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-input">
+                    <label>Transmisi:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={transmisi}
+                      onChange={handleTransmisiChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-input">
+                    <label>Bahan Bakar:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={bahan_bakar}
+                      onChange={handleBahanBakarChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-input">
+                    <label>Deskripsi:</label>
+                    <input type="text"
+                      className="form-control"
+                      value={deskripsi}
+                      onChange={handleDeskripsiChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-input">
+                    <label>Jumlah:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={jumlah}
+                      onChange={handleJumlahChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-input">
+                    <label>Harga:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={harga}
+                      onChange={handleHargaChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-input">
+                    <label>Gambar Mobil:</label>
                     <input
                       type="file"
-                      id="image"
-                      name="image"
+                      className="form-control"
                       onChange={handleImageChange}
-                      className="border rounded-md py-2 px-3 w-full focus:outline-none focus:shadow-outline"
+                      multiple
                     />
-                    {imagePreview && (
-                      <img
-                        src={imagePreview}
-                        alt="Image Preview"
-                        className="mt-2 rounded-md max-w-full"
-                        style={{ maxHeight: '200px' }}
-                      />
-                    )}
+                    <div className="image-previews">
+                      {imagePreviews.map((url, index) => (
+                        <img
+                          key={index}
+                          src={url}
+                          alt="Preview"
+                          style={{ maxWidth: '100px', margin: '10px' }}
+                        />
+                      ))}
+                    </div>
+                    <br />
+                    <button type="submit" className="btn btn-primary login">
+                      Simpan
+                    </button>
                   </div>
-                  <button
-                    type="submit"
-                    className="btn btn-primary login"
-                    style={{
-                      backgroundColor: 'green',
-                      color: 'white',
-                      padding: '8px 16px',
-                      border: 'none',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Simpan
-                  </button>
                 </div>
               </form>
             </div>

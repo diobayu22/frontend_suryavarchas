@@ -471,36 +471,40 @@ export const PelangganDetail = () => {
 }
 
 export const PelangganAddDataUser = () => {
+  const searchParams = JSON.parse(localStorage.getItem('searchParams')) || {}
+
   const [tipeIdentitas, setTipeIdentitas] = useState('')
   const [noIdentitas, setNoIdentitas] = useState('')
   const [nama, setNama] = useState('')
   const [noTelp, setNoTelp] = useState('')
   const [alamat, setAlamat] = useState('')
   const [kota, setKota] = useState('')
-  const [plokasi, setLokasi] = useState('')
-  const [ptanggal, setTanggal] = useState('')
-  const [pwaktu, setWaktu] = useState('')
-  const [klokasi, setKLokasi] = useState('')
-  const [ktanggal, setKTanggal] = useState('')
-  const [kwaktu, setKWaktu] = useState('')
+  const [plokasi, setLokasi] = useState(searchParams.lokasiPenjemputan || '')
+  const [ptanggal, setTanggal] = useState(searchParams.tanggalPengambilan || '')
+  const [pwaktu, setWaktu] = useState(searchParams.waktuPengambilan || '')
+  const [klokasi, setKLokasi] = useState(searchParams.lokasiDropoff || '')
+  const [ktanggal, setKTanggal] = useState(searchParams.tanggalDropoff || '')
+  const [kwaktu, setKWaktu] = useState(searchParams.waktuDropoff || '')
   const [kategori, setKategori] = useState('')
   const [total, setTotal] = useState('')
+  const [metode, setMetode] = useState('')
   const [iduser, setIdUser] = useState('')
+  const [idMobil, setIdMobil] = useState('')
   const navigate = useNavigate()
-  // const { token, refreshToken } = useTokenRefresh()
+  const [carDetail, setCarDetail] = useState(null)
+
+  const [carjumlah, setcarjumlah] = useState(0)
+
   const [plokasiEnabled, setPlokasiEnabled] = useState(false)
   const [klokasiEnabled, setKlokasiEnabled] = useState(false)
+  const { id } = useParams()
 
-  // Fungsi untuk mengubah status checkbox pickup
   const handleCheckboxChange = () => {
     setPlokasiEnabled(!plokasiEnabled)
   }
   const handleKCheckboxChange = () => {
     setKlokasiEnabled(!klokasiEnabled)
   }
-  useEffect(() => {
-    // refreshToken()
-  }, [])
 
   const handleTipeIdentitas = (e) => {
     setTipeIdentitas(e.target.value)
@@ -550,6 +554,10 @@ export const PelangganAddDataUser = () => {
     setWaktu(e.target.value)
   }
 
+  const handleMetode = (e) => {
+    setMetode(e.target.value)
+  }
+
   const handleKategori = (e) => {
     setKategori(e.target.value)
   }
@@ -560,7 +568,13 @@ export const PelangganAddDataUser = () => {
 
   useEffect(() => {
     getUser()
-  })
+  }, [])
+
+  useEffect(() => {
+    if (id) {
+      getCardetail()
+    }
+  }, [id])
 
   const getUser = async () => {
     const token = localStorage.getItem('refresh_token')
@@ -574,9 +588,31 @@ export const PelangganAddDataUser = () => {
 
       setIdUser(response.data.id)
     } catch (error) {
-      console.error('Error fetching sopir data:', error)
+      console.error('Error fetching user data:', error)
     }
   }
+
+  const getCardetail = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/mobil/${id}`)
+      setCarDetail(response.data)
+      setcarjumlah(response.data.jumlah)
+      console.log('response.data', response.data.jumlah)
+    } catch (error) {
+      console.error('Error fetching car detail:', error)
+    }
+  }
+
+  // console.log('data  jumlah ', carDetail.harga)
+
+  const calculateTotal = () => {
+    if (!carDetail || isNaN(carDetail.harga)) {
+      return 0
+    }
+    return carDetail.harga + carDetail.harga * 0.05
+  }
+
+  const bayartotal = calculateTotal()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -594,8 +630,10 @@ export const PelangganAddDataUser = () => {
       ktanggal: klokasiEnabled ? ktanggal : null,
       kwaktu: klokasiEnabled ? kwaktu : null,
       kategori: kategori,
-      total: total,
+      total: bayartotal,
+      metode: metode,
       user_id: iduser,
+      mobil_id: id,
     }
 
     try {
@@ -605,13 +643,28 @@ export const PelangganAddDataUser = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            // Authorization: `Bearer ${token}`,
           },
         },
       )
-      console.log('sukses', response)
-      // navigate('/pelanggan')
-      window.location.reload()
+      try {
+        await axios.put(`http://localhost:3000/mobil/jumlah/${id}`, {
+          jumlah: carjumlah - 1,
+        })
+
+        console.log('data  jumlah ', carjumlah - 1)
+
+        if (response.status === 200) {
+          console.log('sukses', response)
+          navigate('/')
+        }
+      } catch (error) {
+        console.error('Error updating car quantity:', error)
+      }
+      if (response.status === 200) {
+        console.log('sukses', response)
+        localStorage.removeItem('searchParams')
+        navigate('/')
+      }
     } catch (error) {
       console.log('error', error)
     }
@@ -651,5 +704,10 @@ export const PelangganAddDataUser = () => {
     plokasiEnabled,
     handleCheckboxChange,
     handleKCheckboxChange,
+    idMobil,
+    setIdMobil,
+    metode,
+    handleMetode,
+    bayartotal,
   }
 }

@@ -48,7 +48,7 @@ const Navbar = ({ isAuthenticated }) => {
               </li>
             ) : (
               <li className="nav-item px-3">
-                <Link className="button1" to="/masuk">
+                <Link className="nav-link" to="/masuk">
                   Login
                 </Link>
               </li>

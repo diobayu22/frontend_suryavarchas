@@ -8,11 +8,12 @@ export default function SignUpPage() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [user, setuser] = useState('')
 
   const Register = async (e) => {
     e.preventDefault()
 
-    if (!email || !username || !password) {
+    if (!email || !username || !password || !user) {
       setMsg('Please fill in all fields')
 
       return
@@ -22,6 +23,7 @@ export default function SignUpPage() {
           username: username,
           email: email,
           password: password,
+          role: user,
         })
         navigate('/masuk')
       } catch (error) {
@@ -68,6 +70,18 @@ export default function SignUpPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+          </div>
+          <div className="form-input">
+            <label htmlFor="tipeId">Daftar Sebagai</label>
+            <select
+              name="tipeId"
+              value={user}
+              onChange={(e) => setuser(e.target.value)}
+            >
+              <option value="">Pilih Identitas</option>
+              <option value="mitra">Mitra</option>
+              <option value="user">Pembeli</option>
+            </select>
           </div>
           <button
             type="submit"

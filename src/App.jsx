@@ -18,6 +18,13 @@ import EditMobilPage from './pages/EditMobil'
 import PenjadwalanPage from './pages/PenjadwalanPage'
 import AddPenjadwalanPage from './pages/TambahPenjadwalan'
 import EditPenjadwalanPage from './pages/EditPenjadwalan'
+import LaporanPage from './pages/LaporanPage'
+import ProfilPage from './pages/ProfilPage'
+import PesananSaya from './pages/PesananSaya'
+import MitraPage from './pages/MitraPage'
+import MobilMitraPage from './pages/MobilMitraPage'
+import AddMobilMitraPage from './pages/TambahMobilMitra'
+import EditMobilMitraPage from './pages/EditMobilMitra'
 function PageNotfound() {
   return (
     <p className="error-message">
@@ -62,6 +69,17 @@ export default function App() {
           exact
           path="/pelangganedit/:id"
           element={<EditPelangganPage />}
+        />
+        <Route exact path="/laporan" element={<LaporanPage />} />
+        <Route exact path="/profile" element={<ProfilPage />} />
+        <Route exact path="/pesanan" element={<PesananSaya />} />
+        <Route exact path="/mitra" element={<MitraPage />} />
+        <Route exact path="/mobilmitra" element={<MobilMitraPage />} />
+        <Route exact path="/mobiladdmitra" element={<AddMobilMitraPage />} />
+        <Route
+          exact
+          path="/mobileditmitra/:id"
+          element={<EditMobilMitraPage />}
         />
         <Route path="*" element={<PageNotfound />} />
       </Routes>

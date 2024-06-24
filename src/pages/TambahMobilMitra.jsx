@@ -3,9 +3,9 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { MobilAddData } from '../controller/MobilController'
+import { MobilAddData, MobilAddDataMitra } from '../controller/MobilController'
 
-const AddMobilPage = () => {
+const AddMobilMitraPage = () => {
   const navigate = useNavigate()
   const {
     jenis,
@@ -36,7 +36,7 @@ const AddMobilPage = () => {
     files,
     imagePreviews,
     handleImageChange,
-  } = MobilAddData()
+  } = MobilAddDataMitra()
 
   const [categories, setCategories] = useState([])
 
@@ -69,7 +69,7 @@ const AddMobilPage = () => {
           <nav>
             <ul>
               <li>
-                <a href="/admin">
+                <a href="/mitra">
                   <img
                     className="logo-1"
                     src="/images/admin/Vector.svg"
@@ -78,54 +78,14 @@ const AddMobilPage = () => {
                   Home
                 </a>
               </li>
-              <li>
-                <a href="/sopir">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/logo-1.svg"
-                    alt=""
-                  />{' '}
-                  Sopir
-                </a>
-              </li>
               <li style={{ backgroundColor: 'orangered' }}>
-                <a href="/mobil">
+                <a href="/mobilmitra">
                   <img
                     className="logo-1"
-                    src="/images/admin/mobil.svg"
+                    src="/images/admin/Vector.svg"
                     alt=""
                   />{' '}
-                  Mobil
-                </a>
-              </li>
-              <li>
-                <a href="/pelanggan">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/logo-2.svg"
-                    alt=""
-                  />{' '}
-                  Pelanggan
-                </a>
-              </li>
-              <li>
-                <a href="/penjadwalan">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/penjadwalan.svg"
-                    alt=""
-                  />{' '}
-                  Penjadwalan
-                </a>
-              </li>
-              <li>
-                <a href="/laporan">
-                  <img
-                    className="logo-1"
-                    src="/images/admin/logo-4.svg"
-                    alt=""
-                  />{' '}
-                  Laporan
+                  Mobil Mitra
                 </a>
               </li>
               <div className="logout-admin">
@@ -159,6 +119,7 @@ const AddMobilPage = () => {
                 </h3>
               </div>
               <form action="" onSubmit={handleSubmit}>
+
                 <div className="form-input-group">
 
                   <div className="form-input">
@@ -334,7 +295,6 @@ const AddMobilPage = () => {
                       />
                     ))}
                   </div>
-                  <br />
                   <button
                     type="submit"
                     className="btn btn-primary login"
@@ -346,10 +306,10 @@ const AddMobilPage = () => {
               </form>
             </div>
           </section>
-        </main >
-      </div >
-    </div >
+        </main>
+      </div>
+    </div>
   )
 }
 
-export default AddMobilPage
+export default AddMobilMitraPage

@@ -153,17 +153,7 @@ const SopirPage = () => {
                   Daftar Sopir
                 </h3>
                 <button
-                  style={{
-                    backgroundColor: 'green',
-                    color: 'white',
-                    padding: '8px 16px',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginTop: '8px',
-                  }}
+                  className="btn btn-primary login"
                   onClick={handleTambah}
                 >
                   <FontAwesomeIcon
@@ -172,6 +162,7 @@ const SopirPage = () => {
                   />
                   Tambah Sopir
                 </button>
+
               </div>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
